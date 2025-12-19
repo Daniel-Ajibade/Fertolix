@@ -1813,3 +1813,8 @@ body {
     display: none !important;
   }
 }
+body {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
