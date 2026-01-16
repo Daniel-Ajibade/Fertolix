@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Show modal after 10 seconds
-    setTimeout(showModal, 10000);
+    setTimeout(showModal, 20000);
 
     // Close modal when X is clicked
     modalClose.addEventListener('click', hideModal);
