@@ -114,13 +114,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    const discountBtn = document.getElementById('openDiscountModal');
+    // const discountBtn = document.getElementById('openDiscountModal');
 
-    if (discountBtn) {
-        discountBtn.addEventListener('click', function () {
-            showModal(true);
-        });
-    }
+    // if (discountBtn) {
+    //     discountBtn.addEventListener('click', function () {
+    //         showModal(true);
+    //     });
+    // }
 
     const discountToast = document.getElementById('discountToast');
 
@@ -406,3 +406,498 @@ document.addEventListener("keydown", e => {
         e.preventDefault();
     }
 });
+// Added JS
+// ============================================
+// FERTOLIX PRO - ADDITIONAL JAVASCRIPT FOR NEW FEATURES
+// Add this to your existing script.js file
+// ============================================
+
+// Add this inside your DOMContentLoaded event listener
+
+// ============================================
+// SUCCESS COUNTER ANIMATION (10A)
+// ============================================
+function animateSuccessCounter() {
+    const counterElement = document.getElementById('successCounter');
+    if (!counterElement) return;
+    
+    const targetNumber = 12847;
+    const duration = 2000; // 2 seconds
+    const increment = targetNumber / (duration / 16); // 60fps
+    let currentNumber = 12000;
+    
+    const timer = setInterval(() => {
+        currentNumber += increment;
+        if (currentNumber >= targetNumber) {
+            currentNumber = targetNumber;
+            clearInterval(timer);
+        }
+        counterElement.textContent = Math.floor(currentNumber).toLocaleString();
+    }, 16);
+}
+
+// Trigger animation when section comes into view
+const successCounterSection = document.querySelector('.success-counter-section');
+if (successCounterSection) {
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateSuccessCounter();
+                counterObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    counterObserver.observe(successCounterSection);
+}
+
+// ============================================
+// REGIONAL STOCK COUNTDOWN (3B)
+// ============================================
+const regionalStockCounts = {
+    stockLagos: 12,
+    stockAbuja: 8,
+    stockPH: 6,
+    stockRivers: 7,
+    stockEdo: 5,
+    stockOyo: 9
+};
+
+function updateRegionalStock() {
+    Object.keys(regionalStockCounts).forEach(stockId => {
+        const element = document.getElementById(stockId);
+        if (element && regionalStockCounts[stockId] > 3) {
+            regionalStockCounts[stockId]--;
+            element.textContent = `${regionalStockCounts[stockId]} bottles`;
+            
+            // Change color when stock is low
+            if (regionalStockCounts[stockId] <= 5) {
+                element.style.color = '#E74C3C';
+                element.style.fontWeight = '700';
+            }
+        }
+    });
+}
+
+// Update regional stock every 2-3 minutes (random)
+function scheduleRegionalStockUpdate() {
+    const interval = Math.floor(Math.random() * (180000 - 120000 + 1)) + 120000;
+    setTimeout(function() {
+        updateRegionalStock();
+        scheduleRegionalStockUpdate();
+    }, interval);
+}
+
+scheduleRegionalStockUpdate();
+
+// ============================================
+// ENHANCED FORM VALIDATION WITH PHONE MATCHING
+// ============================================
+const mainOrderForm = document.getElementById('orderFormElement');
+const discountForm = document.getElementById('discountOrderForm');
+
+function setupFormValidation(form) {
+    if (!form) return;
+    
+    form.addEventListener('submit', function(e) {
+        const fullNameField = form.querySelector('[name="fullName"]');
+        const phoneNumberField = form.querySelector('[name="phoneNumber"]');
+        const phoneConfirmField = form.querySelector('[name="phoneNumberConfirm"]');
+        const addressField = form.querySelector('[name="deliveryAddress"]');
+        const stateField = form.querySelector('[name="state"]');
+        const quantityField = form.querySelector('[name="quantity"]');
+        const deliveryField = form.querySelector('input[name="delivery"]:checked');
+        
+        let errors = [];
+        
+        // Validation checks
+        if (!fullNameField.value.trim()) errors.push('Please enter your full name');
+        if (!phoneNumberField.value.trim()) errors.push('Please enter your phone number');
+        if (!phoneConfirmField.value.trim()) errors.push('Please confirm your phone number');
+        if (!addressField.value.trim()) errors.push('Please enter your delivery address');
+        if (!stateField.value) errors.push('Please select your state');
+        if (!quantityField.value) errors.push('Please select a package');
+        if (!deliveryField) errors.push('Please select delivery duration');
+        
+        // Check if phone numbers match
+        if (phoneNumberField.value && phoneConfirmField.value && 
+            phoneNumberField.value !== phoneConfirmField.value) {
+            errors.push('Phone numbers do not match');
+        }
+        
+        // Validate Nigerian phone number format
+        const phoneRegex = /^(\+234|234|0)[789][01]\d{8}$/;
+        if (phoneNumberField.value && !phoneRegex.test(phoneNumberField.value.replace(/\s/g, ''))) {
+            errors.push('Please enter a valid Nigerian phone number');
+        }
+        
+        if (errors.length > 0) {
+            e.preventDefault();
+            alert('Please fix the following errors:\n\n' + errors.join('\n'));
+            return false;
+        }
+        
+        // Success message
+        alert('Thank you! Your order has been submitted successfully. We will contact you within 2 hours to confirm your order and delivery details.');
+    });
+    
+    // Real-time phone number matching
+    const phoneInput = form.querySelector('[name="phoneNumber"]');
+    const phoneConfirmInput = form.querySelector('[name="phoneNumberConfirm"]');
+    
+    function checkPhoneMatch() {
+        if (phoneInput.value && phoneConfirmInput.value) {
+            if (phoneInput.value !== phoneConfirmInput.value) {
+                phoneConfirmInput.style.borderColor = '#E74C3C';
+            } else {
+                phoneConfirmInput.style.borderColor = '#27AE60';
+            }
+        } else {
+            phoneConfirmInput.style.borderColor = '';
+        }
+    }
+    
+    if (phoneInput && phoneConfirmInput) {
+        phoneInput.addEventListener('input', checkPhoneMatch);
+        phoneConfirmInput.addEventListener('input', checkPhoneMatch);
+    }
+}
+
+// Setup validation for both forms
+setupFormValidation(mainOrderForm);
+setupFormValidation(discountForm);
+
+// ============================================
+// SMOOTH SCROLL WITH OFFSET FOR STICKY ELEMENTS
+// ============================================
+function smoothScrollToSection(targetId) {
+    const target = document.getElementById(targetId);
+    if (target) {
+        const offset = 80; // Account for sticky elements
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+        });
+    }
+}
+
+// Enhanced anchor link handling
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#' || href === '') return;
+        
+        e.preventDefault();
+        const targetId = href.substring(1);
+        smoothScrollToSection(targetId);
+        
+        // Update URL without jumping
+        history.pushState(null, null, href);
+    });
+});
+
+// ============================================
+// ENHANCED SCROLL ANIMATIONS
+// ============================================
+const enhancedObserverOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const enhancedObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate-on-scroll');
+            enhancedObserver.unobserve(entry.target);
+        }
+    });
+}, enhancedObserverOptions);
+
+// Observe new sections
+const newAnimatedElements = document.querySelectorAll(
+    '.founder-content, .tried-item, .tried-different, .truth-stat-box, ' +
+    '.clinical-result-box, .doctor-content, .cert-badge, .guarantee-box, ' +
+    '.cost-item, .challenge-point, .process-step, .referral-card'
+);
+
+newAnimatedElements.forEach(element => {
+    enhancedObserver.observe(element);
+});
+
+// ============================================
+// DYNAMIC STOCK ALERTS
+// ============================================
+function showStockAlert() {
+    const stockAlerts = [
+        '⚠️ Stock running low in Lagos!',
+        '🔥 Only a few bottles left in Abuja!',
+        '⏰ Limited stock alert - Order now!',
+        '📉 Stock decreasing fast!'
+    ];
+    
+    const randomAlert = stockAlerts[Math.floor(Math.random() * stockAlerts.length)];
+    
+    // You can display this in a toast notification if you add one
+    console.log(randomAlert);
+}
+
+// Show stock alert every 5 minutes
+setInterval(showStockAlert, 300000);
+
+// ============================================
+// COMPARISON TABLE HIGHLIGHT ON HOVER
+// ============================================
+const comparisonTable = document.querySelector('.comparison-table');
+if (comparisonTable) {
+    const rows = comparisonTable.querySelectorAll('tbody tr');
+    
+    rows.forEach(row => {
+        row.addEventListener('mouseenter', function() {
+            this.style.backgroundColor = '#E8F5F5';
+            this.style.transition = 'background-color 0.2s ease';
+        });
+        
+        row.addEventListener('mouseleave', function() {
+            this.style.backgroundColor = '';
+        });
+    });
+}
+
+// ============================================
+// COST COMPARISON ANIMATION
+// ============================================
+function animateCostComparison() {
+    const costItems = document.querySelectorAll('.cost-item');
+    
+    costItems.forEach((item, index) => {
+        setTimeout(() => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = 'all 0.6s ease';
+            
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, 100);
+        }, index * 200);
+    });
+}
+
+// Trigger animation when comparison section comes into view
+const comparisonSection = document.querySelector('.comparison-section');
+if (comparisonSection) {
+    const comparisonObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCostComparison();
+                comparisonObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    comparisonObserver.observe(comparisonSection);
+}
+
+// ============================================
+// GUARANTEE CARDS INTERACTION
+// ============================================
+const guaranteeBoxes = document.querySelectorAll('.guarantee-box');
+
+guaranteeBoxes.forEach(box => {
+    box.addEventListener('mouseenter', function() {
+        const icon = this.querySelector('.guarantee-icon');
+        if (icon) {
+            icon.style.transform = 'scale(1.2) rotate(5deg)';
+            icon.style.transition = 'transform 0.3s ease';
+        }
+    });
+    
+    box.addEventListener('mouseleave', function() {
+        const icon = this.querySelector('.guarantee-icon');
+        if (icon) {
+            icon.style.transform = 'scale(1) rotate(0deg)';
+        }
+    });
+});
+
+// ============================================
+// PROCESS TIMELINE PROGRESSIVE REVEAL
+// ============================================
+function revealProcessSteps() {
+    const processSteps = document.querySelectorAll('.process-step');
+    
+    processSteps.forEach((step, index) => {
+        setTimeout(() => {
+            step.style.opacity = '0';
+            step.style.transform = 'translateX(-50px)';
+            step.style.transition = 'all 0.6s ease';
+            
+            setTimeout(() => {
+                step.style.opacity = '1';
+                step.style.transform = 'translateX(0)';
+            }, 100);
+        }, index * 300);
+    });
+}
+
+// Trigger when order process section comes into view
+const processSection = document.querySelector('.order-process-section');
+if (processSection) {
+    const processObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                revealProcessSteps();
+                processObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+    
+    processObserver.observe(processSection);
+}
+
+// ============================================
+// REFERRAL CARDS PULSE ANIMATION
+// ============================================
+const referralCards = document.querySelectorAll('.referral-card');
+
+referralCards.forEach(card => {
+    setInterval(() => {
+        card.style.transform = 'scale(1.02)';
+        setTimeout(() => {
+            card.style.transform = 'scale(1)';
+        }, 200);
+    }, 5000);
+});
+
+// ============================================
+// CLINICAL RESULTS COUNTER ANIMATION
+// ============================================
+function animateClinicalResults() {
+    const resultBoxes = document.querySelectorAll('.clinical-result-box');
+    
+    resultBoxes.forEach((box, index) => {
+        const percentage = box.querySelector('.result-percentage');
+        if (!percentage) return;
+        
+        const text = percentage.textContent.trim();
+        
+        // Only animate numbers, not text like "10 Days"
+        if (!isNaN(parseInt(text))) {
+            setTimeout(() => {
+                const target = parseInt(text);
+                let current = 0;
+                const increment = target / 50;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    percentage.textContent = Math.floor(current) + '%';
+                }, 30);
+            }, index * 200);
+        }
+    });
+}
+
+// Trigger clinical results animation
+const clinicalSection = document.querySelector('.clinical-study-section');
+if (clinicalSection) {
+    const clinicalObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateClinicalResults();
+                clinicalObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    clinicalObserver.observe(clinicalSection);
+}
+
+// ============================================
+// TRUTH STATS ANIMATION
+// ============================================
+function animateTruthStats() {
+    const statBoxes = document.querySelectorAll('.truth-stat-box');
+    
+    statBoxes.forEach((box, index) => {
+        setTimeout(() => {
+            box.style.opacity = '0';
+            box.style.transform = 'rotateY(90deg)';
+            box.style.transition = 'all 0.6s ease';
+            
+            setTimeout(() => {
+                box.style.opacity = '1';
+                box.style.transform = 'rotateY(0deg)';
+            }, 100);
+        }, index * 300);
+    });
+}
+
+// Trigger stats animation
+const truthSection = document.querySelector('.industry-truth-section');
+if (truthSection) {
+    const truthObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateTruthStats();
+                truthObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    truthObserver.observe(truthSection);
+}
+
+// ============================================
+// COPY PROTECTION (Optional)
+// ============================================
+// Prevent right-click on specific sections
+const protectedSections = document.querySelectorAll(
+    '.founder-story-section, .clinical-study-section, .doctor-endorsement-section'
+);
+
+protectedSections.forEach(section => {
+    section.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+    });
+});
+
+// ============================================
+// PERFORMANCE: LAZY LOAD IMAGES
+// ============================================
+if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                }
+                observer.unobserve(img);
+            }
+        });
+    });
+    
+    document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+    });
+}
+
+// ============================================
+// CONSOLE LOG FOR ENHANCED VERSION
+// ============================================
+console.log('%c🌟 Fertolix Pro Enhanced - All Advanced Features Loaded! 🌟', 
+    'color: #2D8B8B; font-size: 16px; font-weight: bold;');
+console.log('%cNew features: Success Counter, Regional Stock, Clinical Studies, Doctor Endorsement, Cost Comparison, Guarantees, Order Timeline, Referral Program', 
+    'color: #5A6C7D; font-size: 12px;');
+
+// ============================================
+// END OF ENHANCED JAVASCRIPT
+// ============================================
