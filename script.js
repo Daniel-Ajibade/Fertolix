@@ -901,3 +901,16 @@ console.log('%cNew features: Success Counter, Regional Stock, Clinical Studies, 
 // ============================================
 // END OF ENHANCED JAVASCRIPT
 // ============================================
+// FIX: Proper scroll to order form
+document.getElementById('Clickid')?.addEventListener('click', function(e) {
+  e.preventDefault();
+  const orderForm = document.getElementById('order-form');
+  if (orderForm) {
+    const offset = 80; // Account for sticky elements
+    const targetPosition = orderForm.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({
+      top: targetPosition,
+      behavior: 'smooth'
+    });
+  }
+});
