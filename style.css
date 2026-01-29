@@ -5,6 +5,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  will-change: auto;
 }
 
 :root {
@@ -57,6 +58,12 @@ body {
   background-color: var(--bg-cream);
   line-height: 1.6;
   overflow-x: hidden;
+  padding-bottom: 4rem;
+}
+html,
+body {
+  overscroll-behavior: none; /* prevent rubber-band bounce */
+  -webkit-overflow-scrolling: auto; /* control iOS smooth scroll */
 }
 
 /* Container */
@@ -187,7 +194,7 @@ body {
   top: 80px;
   right: 20px;
   background: var(--white);
-  /* padding: var(--spacing-md); */
+  padding: var(--spacing-md);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   z-index: 997;
@@ -561,6 +568,7 @@ body {
   );
   padding: var(--spacing-xxl) 0;
 }
+
 
 .hero-content {
   display: grid;
@@ -1812,7 +1820,7 @@ body {
 }
 
 .animate-on-scroll {
-  animation: fadeInUp 0.6s ease-out;
+  will-change: transform, opacity;
 }
 
 /* ============================================
@@ -1840,14 +1848,16 @@ body {
   position: fixed;
   bottom: 0;
   left: 0;
-  right: 0; /* ← CHANGE: Use right instead of width */
-  /* Remove width: 100%; */
-  background: #1f9d55;
+  right: 0; /* keep right: 0 for full width */
   padding: 0.75rem 1rem;
+  padding-bottom: calc(
+    0.75rem + env(safe-area-inset-bottom)
+  ); /* ADD safe area */
+  background: #1f9d55;
   text-align: center;
-  z-index: 998; /* ← CHANGE: Lower than WhatsApp button */
+  z-index: 998;
   box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.25);
-  transform: translateZ(0); /* ← ADD: Force GPU layer */
+  transform: translateZ(0);
   -webkit-transform: translateZ(0);
 }
 

@@ -66,7 +66,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Array of package options
     const packages = [
-        '1 Bottle',
         '2 Bottles',
         '3 Bottles',
         '4 Bottles'
