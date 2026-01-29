@@ -187,13 +187,15 @@ body {
   top: 80px;
   right: 20px;
   background: var(--white);
-  padding: var(--spacing-md);
+  /* padding: var(--spacing-md); */
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   z-index: 997;
   max-width: 320px;
-  transform: translateX(400px);
+  transform: translateX(400px) translateZ(0); /* ← ADD: translateZ */
+  -webkit-transform: translateX(400px) translateZ(0);
   transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  z-index: 997;
   border-left: 4px solid var(--primary-teal);
 }
 
@@ -1838,22 +1840,15 @@ body {
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 100%;
+  right: 0; /* ← CHANGE: Use right instead of width */
+  /* Remove width: 100%; */
   background: #1f9d55;
   padding: 0.75rem 1rem;
   text-align: center;
-  z-index: 998; /* Below WhatsApp button */
+  z-index: 998; /* ← CHANGE: Lower than WhatsApp button */
   box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.25);
-  /* Prevent layout shifts */
-  transform: translateZ(0);
+  transform: translateZ(0); /* ← ADD: Force GPU layer */
   -webkit-transform: translateZ(0);
-  will-change: transform;
-}
-
-/* Prevent page overlap */
-body {
-  padding-bottom: 0;
-  margin-bottom: 70px;
 }
 
 /* ================================
@@ -3106,6 +3101,7 @@ html {
   background: var(--text-dark);
   color: var(--white);
   padding: var(--spacing-xl) 0 var(--spacing-md);
+  margin-bottom: 80px;
 }
 
 .footer-content {
