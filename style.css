@@ -74,7 +74,6 @@ section,
 
 html,
 body {
-  overscroll-behavior: none; /* prevent rubber-band bounce */
   -webkit-overflow-scrolling: auto; /* control iOS smooth scroll */
 }
 
@@ -1578,23 +1577,7 @@ html {
   }
 }
 
-/* ================================
-   MOBILE TWEAKS
-================================ */
 
-@media (max-width: 480px) {
-}
-#discountModal {
-  display: none;
-}
-
-#discountModal.active {
-  display: flex;
-}
-
-#discountModal {
-  z-index: 10000;
-}
 .discount-toast {
   position: fixed;
   top: 65px;
