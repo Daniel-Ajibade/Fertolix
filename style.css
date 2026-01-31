@@ -1933,6 +1933,11 @@ html {
   -webkit-backface-visibility: hidden;
 }
 
+body {
+  overflow: auto !important;
+}
+
+
 /* Latest Update */
 
 /* ============================================
