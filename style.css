@@ -1844,22 +1844,6 @@ body {
    STICKY FOOTER CTA
 ================================ */
 
-.sticky-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0; /* keep right: 0 for full width */
-  padding: 0.75rem 1rem;
-  padding-bottom: calc(
-    0.75rem + env(safe-area-inset-bottom)
-  ); /* ADD safe area */
-  background: #1f9d55;
-  text-align: center;
-  z-index: 998;
-  box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.25);
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-}
 
 /* ================================
    CTA BUTTON
@@ -1869,28 +1853,6 @@ html {
   scroll-behavior: smooth;
 }
 
-.discount-btn {
-  background: #ffffff;
-  color: #1f9d55;
-  border: none;
-  padding: 0.75rem 1.8rem;
-  font-size: 1rem;
-  font-weight: 700;
-  border-radius: 999px;
-  cursor: pointer;
-  letter-spacing: 0.3px;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-  animation: pulseGlow 2.2s infinite;
-  display: block;
-  width: fit-content;
-  margin: 0 auto;
-}
-
-.discount-btn:hover {
-  transform: translateY(-1px);
-}
 
 /* ================================
    PULSE + GLOW EFFECT
@@ -1913,10 +1875,6 @@ html {
 ================================ */
 
 @media (max-width: 480px) {
-  .discount-btn {
-    font-size: 0.9rem;
-    padding: 0.65rem 1.4rem;
-  }
 }
 #discountModal {
   display: none;
@@ -1924,9 +1882,6 @@ html {
 
 #discountModal.active {
   display: flex;
-}
-.sticky-footer {
-  z-index: 9999;
 }
 
 #discountModal {
@@ -3470,10 +3425,4 @@ textarea:focus {
     background: white;
     color: black;
   }
-}
-/* body {
-  font-size: 1rem !important;
-} */
-#Clickid {
-  text-decoration: none;
 }
