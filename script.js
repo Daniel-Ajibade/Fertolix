@@ -96,30 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Then show notification every 15 seconds
     setInterval(showNotification, 15000);
 
-    // ============================================
-    // DISCOUNT MODAL
-    // ============================================
-    const discountModal = document.getElementById('discountModal');
-    const modalClose = document.getElementById('modalClose');
-    let modalShown = false;
-
-    // Function to show modal
-    // function showModal(force = false) {
-    //     if (!modalShown || force) {
-    //         discountModal.classList.add('active');
-    //         modalShown = true;
-    //         document.body.style.overflow = 'hidden';
-    //     }
-    // }
-
-
-    // const discountBtn = document.getElementById('openDiscountModal');
-
-    // if (discountBtn) {
-    //     discountBtn.addEventListener('click', function () {
-    //         showModal(true);
-    //     });
-    // }
+    
 
     const discountToast = document.getElementById('discountToast');
 
@@ -133,92 +110,63 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // Function to hide modal
-    function hideModal() {
-        discountModal.classList.remove('active');
-        // Restore body scroll
-        document.body.style.overflow = 'auto';
-    }
+    // function hideModal() {
+    //     discountModal.classList.remove('active');
+       
+    //     document.body.style.overflow = 'auto';
+    // }
 
     // Show modal after 10 seconds
     // setTimeout(showModal, 50000);
 
     // Close modal when X is clicked
-    modalClose.addEventListener('click', hideModal);
+    // modalClose.addEventListener('click', hideModal);
 
     // Close modal when clicking outside the modal content
-    discountModal.addEventListener('click', function (e) {
-        if (e.target === discountModal) {
-            hideModal();
-        }
-    });
+    // discountModal.addEventListener('click', function (e) {
+    //     if (e.target === discountModal) {
+    //         hideModal();
+    //     }
+    // });
 
     // Exit Intent - Show modal when user tries to leave
-    let exitIntentShown = false;
-    document.addEventListener('mouseleave', function (e) {
-        // Check if mouse is leaving from the top of the page
-        if (e.clientY <= 0 && !exitIntentShown && !discountModal.classList.contains('active')) {
-            showModal();
-            exitIntentShown = true;
-        }
-    });
+    // let exitIntentShown = false;
+    // document.addEventListener('mouseleave', function (e) {
+    //     // Check if mouse is leaving from the top of the page
+    //     if (e.clientY <= 0 && !exitIntentShown && !discountModal.classList.contains('active')) {
+    //         showModal();
+    //         exitIntentShown = true;
+    //     }
+    // });
 
     // Modal links - close modal when "Claim My Discount Now" is clicked
-    const modalCTA = document.querySelector('.modal-cta');
-    if (modalCTA) {
-        modalCTA.addEventListener('click', hideModal);
-    }
+    // const modalCTA = document.querySelector('.modal-cta');
+    // if (modalCTA) {
+    //     modalCTA.addEventListener('click', hideModal);
+    // }
 
-    // ============================================
-    // COUNTDOWN TIMER (Modal & Pricing Section)
-    // ============================================
+    // // ============================================
+    // // COUNTDOWN TIMER (Modal & Pricing Section)
+    // // ============================================
 
-    // Set countdown duration (3-6 hours in seconds)
-    const countdownDuration = Math.floor(Math.random() * (6 - 3 + 1) + 3) * 3600; // Random 3-6 hours
-    let countdownSeconds = countdownDuration;
+    // // Set countdown duration (3-6 hours in seconds)
+    // const countdownDuration = Math.floor(Math.random() * (6 - 3 + 1) + 3) * 3600; // Random 3-6 hours
+    // let countdownSeconds = countdownDuration;
 
-    // Get timer elements
-    const hoursElement = document.getElementById('hours');
-    const minutesElement = document.getElementById('minutes');
-    const secondsElement = document.getElementById('seconds');
+    // // Get timer elements
+    // const hoursElement = document.getElementById('hours');
+    // const minutesElement = document.getElementById('minutes');
+    // const secondsElement = document.getElementById('seconds');
 
-    // Sticky timer elements
-    const hoursStickyElement = document.getElementById('hoursSticky');
-    const minutesStickyElement = document.getElementById('minutesSticky');
-    const secondsStickyElement = document.getElementById('secondsSticky');
+    // // Sticky timer elements
+    // const hoursStickyElement = document.getElementById('hoursSticky');
+    // const minutesStickyElement = document.getElementById('minutesSticky');
+    // const secondsStickyElement = document.getElementById('secondsSticky');
 
-    // Function to update countdown timer
-    function updateCountdown() {
-        const hours = Math.floor(countdownSeconds / 3600);
-        const minutes = Math.floor((countdownSeconds % 3600) / 60);
-        const seconds = countdownSeconds % 60;
 
-        // Format with leading zeros
-        const hoursFormatted = String(hours).padStart(2, '0');
-        const minutesFormatted = String(minutes).padStart(2, '0');
-        const secondsFormatted = String(seconds).padStart(2, '0');
-
-        // Update modal timer
-        if (hoursElement) hoursElement.textContent = hoursFormatted;
-        if (minutesElement) minutesElement.textContent = minutesFormatted;
-        if (secondsElement) secondsElement.textContent = secondsFormatted;
-
-        // Update sticky timer
-        if (hoursStickyElement) hoursStickyElement.textContent = hoursFormatted;
-        if (minutesStickyElement) minutesStickyElement.textContent = minutesFormatted;
-        if (secondsStickyElement) secondsStickyElement.textContent = secondsFormatted;
-
-        // Decrease countdown
-        countdownSeconds--;
-
-        // Reset when it reaches 0
-        if (countdownSeconds < 0) {
-            countdownSeconds = countdownDuration;
-        }
-    }
-
-    // Update countdown every second
-    updateCountdown(); // Initial call
-    setInterval(updateCountdown, 1000);
+    // // Update countdown every second
+    // updateCountdown(); // Initial call
+    // setInterval(updateCountdown, 1000);
 
     // ============================================
     // STOCK SCARCITY COUNTER
