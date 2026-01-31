@@ -1936,6 +1936,10 @@ html {
 body {
   overflow: auto !important;
 }
+.modal {
+  display: none !important;
+}
+
 
 
 /* Latest Update */
