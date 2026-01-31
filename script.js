@@ -104,13 +104,13 @@ document.addEventListener('DOMContentLoaded', function () {
     let modalShown = false;
 
     // Function to show modal
-    function showModal(force = false) {
-        if (!modalShown || force) {
-            discountModal.classList.add('active');
-            modalShown = true;
-            document.body.style.overflow = 'hidden';
-        }
-    }
+    // function showModal(force = false) {
+    //     if (!modalShown || force) {
+    //         discountModal.classList.add('active');
+    //         modalShown = true;
+    //         document.body.style.overflow = 'hidden';
+    //     }
+    // }
 
 
     // const discountBtn = document.getElementById('openDiscountModal');
