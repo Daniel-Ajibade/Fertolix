@@ -1939,6 +1939,9 @@ body {
 .modal {
   display: none !important;
 }
+.sticky-footer {
+  display: none !important;
+}
 
 
 
