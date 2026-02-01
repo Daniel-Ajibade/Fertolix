@@ -93,8 +93,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Show first notification after 15 seconds
     setTimeout(showNotification, 15000);
 
-    // Then show notification every 15 seconds
-    setInterval(showNotification, 15000);
+    // Then show notification every 20 seconds
+    setInterval(showNotification, 20000);
 
     
 
@@ -844,3 +844,30 @@ console.log('%c🌟 Fertolix Pro Enhanced - All Advanced Features Loaded! 🌟',
     'color: #2D8B8B; font-size: 16px; font-weight: bold;');
 console.log('%cNew features: Success Counter, Regional Stock, Clinical Studies, Doctor Endorsement, Cost Comparison, Guarantees, Order Timeline, Referral Program', 
     'color: #5A6C7D; font-size: 12px;');
+   // ============================================
+// STICKY CTA BUTTON - SCROLL TO FORM
+// ============================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    const ctaButton = document.getElementById('ctaButton');
+    
+    if (ctaButton) {
+        ctaButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Find the order form
+            const orderForm = document.getElementById('order-form');
+            
+            if (orderForm) {
+                // Smooth scroll to form with offset
+                const offset = 80; // Account for sticky elements
+                const targetPosition = orderForm.getBoundingClientRect().top + window.pageYOffset - offset;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+});
