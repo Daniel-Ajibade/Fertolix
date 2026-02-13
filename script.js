@@ -464,7 +464,6 @@ function setupFormValidation(form) {
         if (!addressField.value.trim()) errors.push('Please enter your delivery address');
         if (!stateField.value) errors.push('Please select your state');
         if (!quantityField.value) errors.push('Please select a package');
-        if (!deliveryField) errors.push('Please select delivery duration');
         
         // Check if phone numbers match
         if (phoneNumberField.value && phoneConfirmField.value && 
