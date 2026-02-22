@@ -303,7 +303,7 @@ body {
 
 .hero-description {
   font-size: 1.15rem;
-  color: var(--text-gray);
+  color: var(--text-black);
   margin-bottom: var(--spacing-lg);
   line-height: 1.8;
 }
@@ -420,31 +420,6 @@ img {
 .image-caption {
   margin: 8px 0 0;
   padding: 0;
-}
-
-.bottle-mockup::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.2) 0%,
-    transparent 70%
-  );
-  animation: shine 3s infinite;
-}
-
-@keyframes shine {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  50% {
-    transform: translate(-30%, -30%) rotate(180deg);
-  }
 }
 
 /* Responsive Hero */
@@ -1577,7 +1552,6 @@ html {
   }
 }
 
-
 .discount-toast {
   position: fixed;
   top: 65px;
@@ -1598,10 +1572,6 @@ html {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
-
-
-
-
 
 /* Latest Update */
 
@@ -2975,9 +2945,9 @@ html {
 }
 
 @media (max-width: 768px) {
-  .hero {
+  /* .hero {
     padding: 100px 0 60px;
-  }
+  } */
 
   .hero h1 {
     font-size: 2rem;
@@ -3174,7 +3144,7 @@ textarea:focus {
     font-size: 0.9rem;
     padding: 0.75rem 1.5rem;
   }
-  
+
   .sticky-cta-bar {
     padding: 0.6rem 0.5rem;
   }
