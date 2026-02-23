@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ============================================
-    
+
 
     // ============================================
     // SCROLL ANIMATIONS (Fade In On Scroll)
@@ -295,12 +295,12 @@ document.addEventListener("keydown", e => {
 function animateSuccessCounter() {
     const counterElement = document.getElementById('successCounter');
     if (!counterElement) return;
-    
+
     const targetNumber = 12847;
     const duration = 2000; // 2 seconds
     const increment = targetNumber / (duration / 16); // 60fps
     let currentNumber = 12000;
-    
+
     const timer = setInterval(() => {
         currentNumber += increment;
         if (currentNumber >= targetNumber) {
@@ -322,7 +322,7 @@ if (successCounterSection) {
             }
         });
     }, { threshold: 0.5 });
-    
+
     counterObserver.observe(successCounterSection);
 }
 
@@ -344,7 +344,7 @@ function updateRegionalStock() {
         if (element && regionalStockCounts[stockId] > 3) {
             regionalStockCounts[stockId]--;
             element.textContent = `${regionalStockCounts[stockId]} bottles`;
-            
+
             // Change color when stock is low
             if (regionalStockCounts[stockId] <= 5) {
                 element.style.color = '#E74C3C';
@@ -357,7 +357,7 @@ function updateRegionalStock() {
 // Update regional stock every 2-3 minutes (random)
 function scheduleRegionalStockUpdate() {
     const interval = Math.floor(Math.random() * (180000 - 120000 + 1)) + 120000;
-    setTimeout(function() {
+    setTimeout(function () {
         updateRegionalStock();
         scheduleRegionalStockUpdate();
     }, interval);
@@ -373,8 +373,10 @@ const discountForm = document.getElementById('discountOrderForm');
 
 function setupFormValidation(form) {
     if (!form) return;
-    
-    form.addEventListener('submit', function(e) {
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
         const fullNameField = form.querySelector('[name="fullName"]');
         const phoneNumberField = form.querySelector('[name="phoneNumber"]');
         const phoneConfirmField = form.querySelector('[name="phoneNumberConfirm"]');
@@ -382,9 +384,9 @@ function setupFormValidation(form) {
         const stateField = form.querySelector('[name="state"]');
         const quantityField = form.querySelector('[name="quantity"]');
         const deliveryField = form.querySelector('input[name="delivery"]:checked');
-        
+
         let errors = [];
-        
+
         // Validation checks
         if (!fullNameField.value.trim()) errors.push('Please enter your full name');
         if (!phoneNumberField.value.trim()) errors.push('Please enter your phone number');
@@ -392,33 +394,32 @@ function setupFormValidation(form) {
         if (!addressField.value.trim()) errors.push('Please enter your delivery address');
         if (!stateField.value) errors.push('Please select your state');
         if (!quantityField.value) errors.push('Please select a package');
-        
+
         // Check if phone numbers match
-        if (phoneNumberField.value && phoneConfirmField.value && 
+        if (phoneNumberField.value && phoneConfirmField.value &&
             phoneNumberField.value !== phoneConfirmField.value) {
             errors.push('Phone numbers do not match');
         }
-        
+
         // Validate Nigerian phone number format
         const phoneRegex = /^(\+234|234|0)[789][01]\d{8}$/;
         if (phoneNumberField.value && !phoneRegex.test(phoneNumberField.value.replace(/\s/g, ''))) {
             errors.push('Please enter a valid Nigerian phone number');
         }
-        
+
         if (errors.length > 0) {
-            e.preventDefault();
             alert('Please fix the following errors:\n\n' + errors.join('\n'));
             return false;
         }
-        
-        // Success message
-        alert('Thank you! Your order has been submitted successfully. We will contact you within 2 hours to confirm your order and delivery details.');
+
+        // Redirect to thank you page on success
+        window.location.href = 'thankf.html';
     });
-    
+
     // Real-time phone number matching
     const phoneInput = form.querySelector('[name="phoneNumber"]');
     const phoneConfirmInput = form.querySelector('[name="phoneNumberConfirm"]');
-    
+
     function checkPhoneMatch() {
         if (phoneInput.value && phoneConfirmInput.value) {
             if (phoneInput.value !== phoneConfirmInput.value) {
@@ -430,7 +431,7 @@ function setupFormValidation(form) {
             phoneConfirmInput.style.borderColor = '';
         }
     }
-    
+
     if (phoneInput && phoneConfirmInput) {
         phoneInput.addEventListener('input', checkPhoneMatch);
         phoneConfirmInput.addEventListener('input', checkPhoneMatch);
@@ -449,7 +450,7 @@ function smoothScrollToSection(targetId) {
     if (target) {
         const offset = 80; // Account for sticky elements
         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-        
+
         window.scrollTo({
             top: targetPosition,
             behavior: 'smooth'
@@ -459,14 +460,14 @@ function smoothScrollToSection(targetId) {
 
 // Enhanced anchor link handling
 document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', function(e) {
+    link.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
         if (href === '#' || href === '') return;
-        
+
         e.preventDefault();
         const targetId = href.substring(1);
         smoothScrollToSection(targetId);
-        
+
         // Update URL without jumping
         history.pushState(null, null, href);
     });
@@ -480,7 +481,7 @@ const enhancedObserverOptions = {
     rootMargin: '0px 0px -50px 0px'
 };
 
-const enhancedObserver = new IntersectionObserver(function(entries) {
+const enhancedObserver = new IntersectionObserver(function (entries) {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('animate-on-scroll');
@@ -510,9 +511,9 @@ function showStockAlert() {
         '⏰ Limited stock alert - Order now!',
         '📉 Stock decreasing fast!'
     ];
-    
+
     const randomAlert = stockAlerts[Math.floor(Math.random() * stockAlerts.length)];
-    
+
     // You can display this in a toast notification if you add one
     console.log(randomAlert);
 }
@@ -526,14 +527,14 @@ setInterval(showStockAlert, 300000);
 const comparisonTable = document.querySelector('.comparison-table');
 if (comparisonTable) {
     const rows = comparisonTable.querySelectorAll('tbody tr');
-    
+
     rows.forEach(row => {
-        row.addEventListener('mouseenter', function() {
+        row.addEventListener('mouseenter', function () {
             this.style.backgroundColor = '#E8F5F5';
             this.style.transition = 'background-color 0.2s ease';
         });
-        
-        row.addEventListener('mouseleave', function() {
+
+        row.addEventListener('mouseleave', function () {
             this.style.backgroundColor = '';
         });
     });
@@ -544,13 +545,13 @@ if (comparisonTable) {
 // ============================================
 function animateCostComparison() {
     const costItems = document.querySelectorAll('.cost-item');
-    
+
     costItems.forEach((item, index) => {
         setTimeout(() => {
             item.style.opacity = '0';
             item.style.transform = 'translateY(30px)';
             item.style.transition = 'all 0.6s ease';
-            
+
             setTimeout(() => {
                 item.style.opacity = '1';
                 item.style.transform = 'translateY(0)';
@@ -570,7 +571,7 @@ if (comparisonSection) {
             }
         });
     }, { threshold: 0.3 });
-    
+
     comparisonObserver.observe(comparisonSection);
 }
 
@@ -580,15 +581,15 @@ if (comparisonSection) {
 const guaranteeBoxes = document.querySelectorAll('.guarantee-box');
 
 guaranteeBoxes.forEach(box => {
-    box.addEventListener('mouseenter', function() {
+    box.addEventListener('mouseenter', function () {
         const icon = this.querySelector('.guarantee-icon');
         if (icon) {
             icon.style.transform = 'scale(1.2) rotate(5deg)';
             icon.style.transition = 'transform 0.3s ease';
         }
     });
-    
-    box.addEventListener('mouseleave', function() {
+
+    box.addEventListener('mouseleave', function () {
         const icon = this.querySelector('.guarantee-icon');
         if (icon) {
             icon.style.transform = 'scale(1) rotate(0deg)';
@@ -601,13 +602,13 @@ guaranteeBoxes.forEach(box => {
 // ============================================
 function revealProcessSteps() {
     const processSteps = document.querySelectorAll('.process-step');
-    
+
     processSteps.forEach((step, index) => {
         setTimeout(() => {
             step.style.opacity = '0';
             step.style.transform = 'translateX(-50px)';
             step.style.transition = 'all 0.6s ease';
-            
+
             setTimeout(() => {
                 step.style.opacity = '1';
                 step.style.transform = 'translateX(0)';
@@ -627,7 +628,7 @@ if (processSection) {
             }
         });
     }, { threshold: 0.2 });
-    
+
     processObserver.observe(processSection);
 }
 
@@ -650,20 +651,20 @@ referralCards.forEach(card => {
 // ============================================
 function animateClinicalResults() {
     const resultBoxes = document.querySelectorAll('.clinical-result-box');
-    
+
     resultBoxes.forEach((box, index) => {
         const percentage = box.querySelector('.result-percentage');
         if (!percentage) return;
-        
+
         const text = percentage.textContent.trim();
-        
+
         // Only animate numbers, not text like "10 Days"
         if (!isNaN(parseInt(text))) {
             setTimeout(() => {
                 const target = parseInt(text);
                 let current = 0;
                 const increment = target / 50;
-                
+
                 const timer = setInterval(() => {
                     current += increment;
                     if (current >= target) {
@@ -688,7 +689,7 @@ if (clinicalSection) {
             }
         });
     }, { threshold: 0.5 });
-    
+
     clinicalObserver.observe(clinicalSection);
 }
 
@@ -697,13 +698,13 @@ if (clinicalSection) {
 // ============================================
 function animateTruthStats() {
     const statBoxes = document.querySelectorAll('.truth-stat-box');
-    
+
     statBoxes.forEach((box, index) => {
         setTimeout(() => {
             box.style.opacity = '0';
             box.style.transform = 'rotateY(90deg)';
             box.style.transition = 'all 0.6s ease';
-            
+
             setTimeout(() => {
                 box.style.opacity = '1';
                 box.style.transform = 'rotateY(0deg)';
@@ -723,7 +724,7 @@ if (truthSection) {
             }
         });
     }, { threshold: 0.3 });
-    
+
     truthObserver.observe(truthSection);
 }
 
@@ -736,7 +737,7 @@ const protectedSections = document.querySelectorAll(
 );
 
 protectedSections.forEach(section => {
-    section.addEventListener('contextmenu', function(e) {
+    section.addEventListener('contextmenu', function (e) {
         e.preventDefault();
         return false;
     });
@@ -758,7 +759,7 @@ if ('IntersectionObserver' in window) {
             }
         });
     });
-    
+
     document.querySelectorAll('img[data-src]').forEach(img => {
         imageObserver.observe(img);
     });
@@ -767,29 +768,29 @@ if ('IntersectionObserver' in window) {
 // ============================================
 // CONSOLE LOG FOR ENHANCED VERSION
 // ============================================
-console.log('%c🌟 Fertolix Pro Enhanced - All Advanced Features Loaded! 🌟', 
+console.log('%c🌟 Fertolix Pro Enhanced - All Advanced Features Loaded! 🌟',
     'color: #2D8B8B; font-size: 16px; font-weight: bold;');
-console.log('%cNew features: Success Counter, Regional Stock, Clinical Studies, Doctor Endorsement, Cost Comparison, Guarantees, Order Timeline, Referral Program', 
+console.log('%cNew features: Success Counter, Regional Stock, Clinical Studies, Doctor Endorsement, Cost Comparison, Guarantees, Order Timeline, Referral Program',
     'color: #5A6C7D; font-size: 12px;');
-   // ============================================
+// ============================================
 // STICKY CTA BUTTON - SCROLL TO FORM
 // ============================================
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const ctaButton = document.getElementById('ctaButton');
-    
+
     if (ctaButton) {
-        ctaButton.addEventListener('click', function(e) {
+        ctaButton.addEventListener('click', function (e) {
             e.preventDefault();
-            
+
             // Find the order form
             const orderForm = document.getElementById('order-form');
-            
+
             if (orderForm) {
                 // Smooth scroll to form with offset
                 const offset = 80; // Account for sticky elements
                 const targetPosition = orderForm.getBoundingClientRect().top + window.pageYOffset - offset;
-                
+
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
