@@ -799,3 +799,157 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+  /* ---- QUIZ LOGIC ---- */
+  const quizAnswers = { q1: null, q2: null };
+
+  function selectOption(el, step) {
+    const group = el.closest('.quiz-options');
+    group.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    quizAnswers['q' + step] = el.dataset.value;
+    document.getElementById('nextBtn' + step).disabled = false;
+  }
+
+  function toggleMulti(el) {
+    el.classList.toggle('selected');
+    const anySelected = el.closest('.quiz-options').querySelectorAll('.selected').length > 0;
+    document.getElementById('nextBtn3').disabled = !anySelected;
+  }
+
+  function nextStep(current) {
+    document.querySelector('[data-step="' + current + '"]').classList.remove('active');
+    document.querySelector('[data-step="' + (current + 1) + '"]').classList.add('active');
+    updateProgress(current + 1);
+  }
+
+  function prevStep(current) {
+    document.querySelector('[data-step="' + current + '"]').classList.remove('active');
+    document.querySelector('[data-step="' + (current - 1) + '"]').classList.add('active');
+    updateProgress(current - 1);
+  }
+
+  function updateProgress(step) {
+    const pct = ((step - 1) / 3) * 100;
+    document.getElementById('quizProgress').style.width = pct + '%';
+  }
+
+  function showResult() {
+    // Determine stage
+    let score = 0;
+    if (quizAnswers.q1 === 'active')    score += 1;
+    if (quizAnswers.q1 === 'advanced')  score += 2;
+    if (quizAnswers.q2 === 'active')    score += 1;
+    if (quizAnswers.q2 === 'advanced')  score += 2;
+
+    const q3All = document.getElementById('opts-3').querySelectorAll('.selected');
+    if (q3All.length >= 3) score += 1;
+
+    let stage, badgeClass, title, desc, pkgName, pkgBottles, pkgPrice, oldPrice, pkgWhy;
+
+    if (score <= 1) {
+      stage = 'Early Stage';
+      badgeClass = 'early';
+      title = 'Good News — Early Detection Means Faster Results';
+      desc = 'Your fibroid is at an early stage. With prompt treatment you can dissolve it completely and prevent it from growing larger. The Value Pack is sufficient for your condition.';
+      pkgName = 'Value Package — 2 Bottle';
+      pkgBottles = '2 Bottle (30-day supply)';
+      pkgPrice = '₦40,000';
+      oldPrice = '₦70,000';
+      pkgWhy = 'Ideal for early-stage fibroids. Begin treatment now and stop the fibroid before it grows.';
+    } else if (score <= 3) {
+      stage = 'Active Stage';
+      badgeClass = 'active';
+      title = 'Your Fibroid Is Actively Growing — Act Now';
+      desc = 'Your symptoms and duration suggest the fibroid has had time to establish itself. A full complete treatment is needed to shrink it properly and restore hormonal balance.';
+      pkgName = 'Complete Package — 3 Bottles';
+      pkgBottles = '3 Bottles (45-days supply)';
+      pkgPrice = '₦50,000';
+      oldPrice = '₦90,000';
+      pkgWhy = 'Recommended for moderate fibroids. Gives your body enough time to dissolve the fibroid and stabilise your cycle.';
+    } else {
+      stage = 'Advanced Stage';
+      badgeClass = 'advanced';
+      title = 'Your Condition Needs a Full Womb Correction Cycle';
+      desc = 'Based on your answers, your fibroid has been growing for a significant time with severe symptoms. A complete 45-day treatment is strongly recommended to fully correct your womb environment and prevent recurrence.';
+      pkgName = 'Complete Package — 3 Bottles';
+      pkgBottles = '3-4 Bottles (2-Months supply) — Most Recommended';
+      pkgPrice = '₦65,000';
+      oldPrice = '₦110,000';
+      pkgWhy = 'Designed for advanced or long-standing fibroids. Full cycle corrects the root cause and ensures the fibroid does not return.';
+    }
+
+    document.getElementById('quizProgress').style.width = '100%';
+
+    const resultHTML = `
+      <div class="result-badge ${badgeClass}">● ${stage}</div>
+      <h3>${title}</h3>
+      <p class="result-desc">${desc}</p>
+      <div class="result-package-card">
+        <div class="pkg-label">Your Recommended Package</div>
+        <div class="pkg-name">${pkgName}</div>
+        <div class="pkg-price">${pkgPrice} <span>${oldPrice}</span></div>
+        <p class="pkg-why">${pkgWhy}</p>
+      </div>
+      <a href="#order-form" class="quiz-cta-btn">✅ Order My Recommended Package Now</a>
+      <br>
+      <button class="quiz-retake" onclick="retakeQuiz()">Retake Assessment</button>
+    `;
+
+    const quizBodyEl = document.querySelector('.quiz-body');
+    quizBodyEl.style.display = 'none';
+
+    const resultEl = document.getElementById('quizResult');
+    resultEl.innerHTML = resultHTML;
+    resultEl.classList.add('show');
+  }
+
+  function retakeQuiz() {
+    quizAnswers.q1 = null; quizAnswers.q2 = null;
+    document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    document.getElementById('nextBtn1').disabled = true;
+    document.getElementById('nextBtn2').disabled = true;
+    document.getElementById('nextBtn3').disabled = true;
+    document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+    document.querySelector('[data-step="1"]').classList.add('active');
+    document.getElementById('quizResult').classList.remove('show');
+    document.getElementById('quizResult').innerHTML = '';
+    document.querySelector('.quiz-body').style.display = 'block';
+    document.getElementById('quizProgress').style.width = '0%';
+  }
+
+  /* ---- COMMENTS LIKE TOGGLE ---- */
+  function toggleLike(btn) {
+    const countEl = btn.querySelector('.like-count');
+    let count = parseInt(countEl.textContent);
+    if (btn.classList.contains('liked')) {
+      btn.classList.remove('liked');
+      countEl.textContent = count - 1;
+    } else {
+      btn.classList.add('liked');
+      countEl.textContent = count + 1;
+    }
+  }
+
+  /* ---- COMPOSE COMMENT ---- */
+  function submitComment() {
+    const input = document.getElementById('commentInput');
+    const text = input.value.trim();
+    if (!text) return;
+    const list = document.querySelector('.comments-inner');
+    const compose = document.querySelector('.comments-compose');
+    const newComment = document.createElement('div');
+    newComment.className = 'comment-item';
+    newComment.innerHTML = `
+      <div class="comment-avatar">👤</div>
+      <div class="comment-content">
+        <div class="comment-name">You</div>
+        <p class="comment-text">${text.replace(/</g,'&lt;')}</p>
+        <div class="comment-meta">
+          <button class="like-btn" onclick="toggleLike(this)">👍 Like <span class="like-count">0</span></button>
+          <button class="reply-btn">Reply</button>
+          <span>Just now</span>
+        </div>
+      </div>`;
+    list.insertBefore(newComment, compose);
+    input.value = '';
+  }
