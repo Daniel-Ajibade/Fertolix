@@ -5,6 +5,29 @@
 // Wait for DOM to be fully loaded before running scripts
 document.addEventListener('DOMContentLoaded', function () {
 
+
+    const ctaButton = document.getElementById('ctaButton');
+
+    if (ctaButton) {
+        ctaButton.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            // Find the order form
+            const orderForm = document.getElementById('orderForm');
+
+            if (orderForm) {
+                // Smooth scroll to form with offset
+                const offset = 80; // Account for sticky elements
+                const targetPosition = orderForm.getBoundingClientRect().top + window.pageYOffset - offset;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+
     // ============================================
     // LIVE VISITOR COUNTER
     // ============================================
@@ -368,79 +391,99 @@ scheduleRegionalStockUpdate();
 // ============================================
 // ENHANCED FORM VALIDATION WITH PHONE MATCHING
 // ============================================
-const mainOrderForm = document.getElementById('orderFormElement');
-const discountForm = document.getElementById('discountOrderForm');
+const stateToLGA = {
+    "Abia": ["Aba North", "Aba South", "Arochukwu", "Bende", "Ikwuano", "Isiala Ngwa North", "Isiala Ngwa South", "Isuikwuato", "Obi Ngwa", "Ohafia", "Osisioma", "Ugwunagbo", "Ukwa East", "Ukwa West", "Umuahia North", "Umuahia South", "Umu Nneochi"],
+    "Adamawa": ["Demsa", "Fufure", "Ganye", "Gayuk", "Gombi", "Grie", "Hong", "Jada", "Larmurde", "Madagali", "Maiha", "Mayo Belwa", "Michika", "Mubi North", "Mubi South", "Numan", "Shelleng", "Song", "Toungo", "Yola North", "Yola South"],
+    "Akwa Ibom": ["Abak", "Eastern Obolo", "Eket", "Esit Eket", "Essien Udim", "Etim Ekpo", "Etinan", "Ibeno", "Ibesikpo Asutan", "Ibiono-Ibom", "Ika", "Ikono", "Ikot Abasi", "Ikot Ekpene", "Ini", "Itu", "Mbo", "Mkpat-Enin", "Nsit-Atai", "Nsit-Ibom", "Nsit-Ubium", "Obot Akara", "Okobo", "Onna", "Oron", "Oruk Anam", "Udung-Uko", "Ukanafun", "Uruan", "Urue-Offong/Oruko", "Uyo"],
+    "Anambra": ["Aguata", "Anambra East", "Anambra West", "Anaocha", "Awka North", "Awka South", "Ayamelum", "Dunukofia", "Ekwusigo", "Idemili North", "Idemili South", "Ihiala", "Njikoka", "Nnewi North", "Nnewi South", "Ogbaru", "Onitsha North", "Onitsha South", "Orumba North", "Orumba South", "Oyi"],
+    "Bauchi": ["Alkaleri", "Bauchi", "Bogoro", "Damban", "Darazo", "Dass", "Gamawa", "Ganjuwa", "Giade", "Itas/Gadau", "Jama'are", "Katagum", "Kirfi", "Misau", "Ningi", "Shira", "Tafawa Balewa", "Toro", "Warji", "Zaki"],
+    "Bayelsa": ["Brass", "Ekeremor", "Kolokuma/Opokuma", "Nembe", "Ogbia", "Sagbama", "Southern Ijaw", "Yenagoa"],
+    "Benue": ["Ado", "Agatu", "Apa", "Buruku", "Gboko", "Guma", "Gwer East", "Gwer West", "Katsina-Ala", "Konshisha", "Kwande", "Logo", "Makurdi", "Obi", "Ogbadibo", "Ohimini", "Oju", "Okpokwu", "Oturkpo", "Tarka", "Ukum", "Ushongo", "Vandeikya"], "Borno": ["Abadam", "Askira/Uba", "Bama", "Bayo", "Biu", "Chibok", "Damboa", "Dikwa", "Gubio", "Guzamala", "Gwoza", "Hawul", "Jere", "Kaga", "Kala/Balge", "Konduga", "Kukawa", "Kwaya Kusar", "Mafa", "Magumeri", "Maiduguri", "Marte", "Mobbar", "Monguno", "Ngala", "Nganzai", "Shani"],
+    "Cross River": ["Abi", "Akamkpa", "Akpabuyo", "Bakassi", "Bekwarra", "Biase", "Boki", "Calabar Municipal", "Calabar South", "Etung", "Ikom", "Obanliku", "Obubra", "Obudu", "Odukpani", "Ogoja", "Yakuur", "Yala"], "Delta": ["Aniocha North", "Aniocha South", "Bomadi", "Burutu", "Ethiope East", "Ethiope West", "Ika North East", "Ika South", "Isoko North", "Isoko South", "Ndokwa East", "Ndokwa West", "Okpe", "Oshimili North", "Oshimili South", "Patani", "Sapele", "Udu", "Ughelli North", "Ughelli South", "Ukwuani", "Uvwie", "Warri North", "Warri South", "Warri South West"],
+    "Ebonyi": ["Abakaliki", "Afikpo North", "Afikpo South", "Ebonyi", "Ezza North", "Ezza South", "Ikwo", "Ishielu", "Ivo", "Izzi", "Ohaozara", "Ohaukwu", "Onicha"],
+    "Edo": ["Akoko-Edo", "Egor", "Esan Central", "Esan North-East", "Esan South-East", "Esan West", "Etsako Central", "Etsako East", "Etsako West", "Igueben", "Ikpoba Okha", "Orhionmwon", "Oredo", "Ovia North-East", "Ovia South-West", "Owan East", "Owan West", "Uhunmwonde"], "Ekiti": ["Ado Ekiti", "Efon", "Ekiti East", "Ekiti South-West", "Ekiti West", "Emure", "Gbonyin", "Ido Osi", "Ijero", "Ikere", "Ikole", "Ilejemeje", "Irepodun/Ifelodun", "Ise/Orun", "Moba", "Oye"],
+    "Enugu": ["Aninri", "Awgu", "Enugu East", "Enugu North", "Enugu South", "Ezeagu", "Igbo Etiti", "Igbo Eze North", "Igbo Eze South", "Isi Uzo", "Nkanu East", "Nkanu West", "Nsukka", "Oji River", "Udenu", "Udi", "Uzo-Uwani"], "FCT": ["Abuja", "Bwari", "Gwagwalada", "Kuje", "Kwali"], "Gombe": ["Akko", "Balanga", "Billiri", "Dukku", "Funakaye", "Gombe", "Kaltungo", "Kwami", "Nafada", "Shongom", "Yamaltu/Deba"],
+    "Imo": ["Aboh Mbaise", "Ahiazu Mbaise", "Ehime Mbano", "Ezinihitte", "Ideato North", "Ideato South", "Ihitte/Uboma", "Ikeduru", "Isiala Mbano", "Isu", "Mbaitoli", "Ngor Okpala", "Njaba", "Nkwerre", "Nwangele", "Obowo", "Oguta", "Ohaji/Egbema", "Okigwe", "Orlu", "Orsu", "Oru East", "Oru West", "Owerri Municipal", "Owerri North", "Owerri West", "Unuimo"], "Jigawa": ["Auyo", "Babura", "Biriniwa", "Birnin Kudu", "Buji", "Dutse", "Gagarawa", "Garki", "Gumel", "Guri", "Gwaram", "Gwiwa", "Hadejia", "Jahun", "Kafin Hausa", "Kazaure", "Kiri Kasama", "Kiyawa", "Kaugama", "Maigatari", "Malam Madori", "Miga", "Ringim", "Roni", "Sule Tankarkar", "Taura", "Yankwashi"],
+    "Kaduna": ["Birnin Gwari", "Chikun", "Giwa", "Igabi", "Ikara", "Jaba", "Jema'a", "Kachia", "Kaduna North", "Kaduna South", "Kagarko", "Kajuru", "Kaura", "Kauru", "Kubau", "Kudan", "Lere", "Makarfi", "Sabon Gari", "Sanga", "Soba", "Zangon Kataf", "Zaria"],
+    "Kano": ["Ajingi", "Albasu", "Bagwai", "Bebeji", "Bichi", "Bunkure", "Dala", "Dambatta", "Dawakin Kudu", "Dawakin Tofa", "Doguwa", "Fagge", "Gabasawa", "Garko", "Garun Mallam", "Gaya", "Gezawa", "Gwale", "Gwarzo", "Kabo", "Kano Municipal", "Karaye", "Kibiya", "Kiru", "Kumbotso", "Kunchi", "Kura", "Madobi", "Makoda", "Minjibir", "Nasarawa", "Rano", "Rimin Gado", "Rogo", "Shanono", "Sumaila", "Takai", "Tarauni", "Tofa", "Tsanyawa", "Tudun Wada", "Ungogo", "Warawa", "Wudil"],
+    "Katsina": ["Bakori", "Batagarawa", "Batsari", "Baure", "Bindawa", "Charanchi", "Dandume", "Danja", "Dan Musa", "Daura", "Dutsi", "Dutsin Ma", "Faskari", "Funtua", "Ingawa", "Jibia", "Kafur", "Kaita", "Kankara", "Kankia", "Katsina", "Kurfi", "Kusada", "Mai'Adua", "Malumfashi", "Mani", "Mashi", "Matazu", "Musawa", "Rimi", "Sabuwa", "Safana", "Sandamu", "Zango"],
+    "Kebbi": ["Aleiro", "Arewa Dandi", "Argungu", "Augie", "Bagudo", "Birnin Kebbi", "Bunza", "Dandi", "Fakai", "Gwandu", "Jega", "Kalgo", "Koko/Besse", "Maiyama", "Ngaski", "Sakaba", "Shanga", "Suru", "Wasagu/Danko", "Yauri", "Zuru"],
+    "Kogi": ["Adavi", "Ajaokuta", "Ankpa", "Bassa", "Dekina", "Ibaji", "Idah", "Igalamela Odolu", "Ijumu", "Kabba/Bunu", "Kogi", "Lokoja", "Mopa Muro", "Ofu", "Ogori/Magongo", "Okehi", "Okene", "Olamaboro", "Omala", "Yagba East", "Yagba West"],
+    "Kwara": ["Asa", "Baruten", "Edu", "Ekiti", "Ifelodun", "Ilorin East", "Ilorin South", "Ilorin West", "Irepodun", "Isin", "Kaiama", "Moro", "Offa", "Oke Ero", "Oyun", "Pategi"], "Lagos": ["Agege", "Ajeromi-Ifelodun", "Alimosho", "Amuwo-Odofin", "Apapa", "Badagry", "Epe", "Eti Osa", "Ibeju-Lekki", "Ifako-Ijaiye", "Ikeja", "Ikorodu", "Kosofe", "Lagos Island", "Lagos Mainland", "Mushin", "Ojo", "Oshodi-Isolo", "Shomolu", "Surulere"], "Nasarawa": ["Akwanga", "Awe", "Doma", "Karu", "Keana", "Keffi", "Kokona", "Lafia", "Nasarawa", "Nasarawa Egon", "Obi", "Toto", "Wamba"],
+    "Niger": ["Agaie", "Agwara", "Bida", "Borgu", "Bosso", "Chanchaga", "Edati", "Gbako", "Gurara", "Katcha", "Kontagora", "Lapai", "Lavun", "Magama", "Mariga", "Mashegu", "Mokwa", "Munya", "Paikoro", "Rafi", "Rijau", "Shiroro", "Suleja", "Tafa", "Wushishi"],
+    "Ogun": ["Abeokuta North", "Abeokuta South", "Ado-Odo/Ota", "Egbado North", "Egbado South", "Ewekoro", "Ifo", "Ijebu East", "Ijebu North", "Ijebu North East", "Ijebu Ode", "Ikenne", "Imeko Afon", "Ipokia", "Obafemi Owode", "Odeda", "Odogbolu", "Ogun Waterside", "Remo North", "Shagamu"],
+    "Ondo": ["Akoko North-East", "Akoko North-West", "Akoko South-East", "Akoko South-West", "Akure North", "Akure South", "Ese Odo", "Idanre", "Ifedore", "Ilaje", "Ile Oluji/Okeigbo", "Irele", "Odigbo", "Okitipupa", "Ondo East", "Ondo West", "Ose", "Owo"],
+    "Osun": ["Aiyedade", "Aiyedire", "Atakunmosa East", "Atakunmosa West", "Boluwaduro", "Boripe", "Ede North", "Ede South", "Egbedore", "Ejigbo", "Ife Central", "Ife East", "Ife North", "Ife South", "Ifedayo", "Ifelodun", "Ila", "Ilesa East", "Ilesa West", "Irepodun", "Irewole", "Isokan", "Iwo", "Obokun", "Odo Otin", "Ola Oluwa", "Olorunda", "Oriade", "Orolu", "Osogbo"], "Oyo": ["Afijio", "Akinyele", "Atiba", "Atisbo", "Egbeda", "Ibadan North", "Ibadan North-East", "Ibadan North-West", "Ibadan South-East", "Ibadan South-West", "Ibarapa Central", "Ibarapa East", "Ibarapa North", "Ido", "Irepo", "Iseyin", "Itesiwaju", "Iwajowa", "Kajola", "Lagelu", "Ogbomosho North", "Ogbomosho South", "Ogo Oluwa", "Olorunsogo", "Oluyole", "Ona Ara", "Orelope", "Ori Ire", "Oyo East", "Oyo West", "Saki East", "Saki West", "Surulere"], "Plateau": ["Barkin Ladi", "Bassa", "Bokkos", "Jos East", "Jos North", "Jos South", "Kanam", "Kanke", "Langtang North", "Langtang South", "Mangu", "Mikang", "Pankshin", "Qua'an Pan", "Riyom", "Shendam", "Wase"], "Rivers": ["Abua/Odual", "Ahoada East", "Ahoada West", "Akuku-Toru", "Andoni", "Asari-Toru", "Bonny", "Degema", "Eleme", "Emuoha", "Etche", "Gokana", "Ikwerre", "Khana", "Obio/Akpor", "Ogba/Egbema/Ndoni", "Ogu/Bolo", "Okrika", "Omuma", "Opobo/Nkoro", "Oyigbo", "Port Harcourt", "Tai"], "Sokoto": ["Binji", "Bodinga", "Dange Shuni", "Gada", "Goronyo", "Gudu", "Gwadabawa", "Illela", "Isa", "Kebbe", "Kware", "Rabah", "Sabon Birni", "Shagari", "Silame", "Sokoto North", "Sokoto South", "Tambuwal", "Tangaza", "Tureta", "Wamako", "Wurno", "Yabo"], "Taraba": ["Ardo Kola", "Bali", "Donga", "Gashaka", "Gassol", "Ibi", "Jalingo", "Karim Lamido", "Kurmi", "Lau", "Sardauna", "Takum", "Ussa", "Wukari", "Yorro", "Zing"], "Yobe": ["Bade", "Bursari", "Damaturu", "Fika", "Fune", "Geidam", "Gujba", "Gulani", "Jakusko", "Karasuwa", "Machina", "Nangere", "Nguru", "Potiskum", "Tarmuwa", "Yunusari", "Yusufari"], "Zamfara": ["Anka", "Bakura", "Birnin Magaji/Kiyaw", "Bukkuyum", "Bungudu", "Gummi", "Gusau", "Kaura Namoda", "Maradun", "Maru", "Shinkafi", "Talata Mafara", "Chafe", "Zurmi"]
+};
+const stateSelect = document.getElementById('state');
+const lgaSelect = document.getElementById('lga');
 
-function setupFormValidation(form) {
-    if (!form) return;
-
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const fullNameField = form.querySelector('[name="fullName"]');
-        const phoneNumberField = form.querySelector('[name="phoneNumber"]');
-        const phoneConfirmField = form.querySelector('[name="phoneNumberConfirm"]');
-        const addressField = form.querySelector('[name="deliveryAddress"]');
-        const stateField = form.querySelector('[name="state"]');
-        const quantityField = form.querySelector('[name="quantity"]');
-        const deliveryField = form.querySelector('input[name="delivery"]:checked');
-
-        let errors = [];
-
-        // Validation checks
-        if (!fullNameField.value.trim()) errors.push('Please enter your full name');
-        if (!phoneNumberField.value.trim()) errors.push('Please enter your phone number');
-        if (!phoneConfirmField.value.trim()) errors.push('Please confirm your phone number');
-        if (!addressField.value.trim()) errors.push('Please enter your delivery address');
-        if (!stateField.value) errors.push('Please select your state');
-        if (!quantityField.value) errors.push('Please select a package');
-
-        // Check if phone numbers match
-        if (phoneNumberField.value && phoneConfirmField.value &&
-            phoneNumberField.value !== phoneConfirmField.value) {
-            errors.push('Phone numbers do not match');
-        }
-
-        // Validate Nigerian phone number format
-        const phoneRegex = /^(\+234|234|0)[789][01]\d{8}$/;
-        if (phoneNumberField.value && !phoneRegex.test(phoneNumberField.value.replace(/\s/g, ''))) {
-            errors.push('Please enter a valid Nigerian phone number');
-        }
-
-        if (errors.length > 0) {
-            alert('Please fix the following errors:\n\n' + errors.join('\n'));
-            return false;
-        }
-
-        // Redirect to thank you page on success
-        window.location.href = 'thankf.html';
-    });
-
-    // Real-time phone number matching
-    const phoneInput = form.querySelector('[name="phoneNumber"]');
-    const phoneConfirmInput = form.querySelector('[name="phoneNumberConfirm"]');
-
-    function checkPhoneMatch() {
-        if (phoneInput.value && phoneConfirmInput.value) {
-            if (phoneInput.value !== phoneConfirmInput.value) {
-                phoneConfirmInput.style.borderColor = '#E74C3C';
-            } else {
-                phoneConfirmInput.style.borderColor = '#27AE60';
-            }
-        } else {
-            phoneConfirmInput.style.borderColor = '';
-        }
-    }
-
-    if (phoneInput && phoneConfirmInput) {
-        phoneInput.addEventListener('input', checkPhoneMatch);
-        phoneConfirmInput.addEventListener('input', checkPhoneMatch);
-    }
+// Populate states
+for (let state in stateToLGA) {
+    const option = document.createElement('option');
+    option.value = state;
+    option.textContent = state;
+    stateSelect.appendChild(option);
 }
 
-// Setup validation for both forms
-setupFormValidation(mainOrderForm);
-setupFormValidation(discountForm);
+// Handle state change
+stateSelect.addEventListener('change', function () {
+    const selectedState = this.value;
+    lgaSelect.innerHTML = '';
+    if (selectedState && stateToLGA[selectedState]) {
+        lgaSelect.disabled = false;
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = '-- Select LGA --';
+        lgaSelect.appendChild(defaultOption);
+        stateToLGA[selectedState].forEach(lga => {
+            const option = document.createElement('option');
+            option.value = lga;
+            option.textContent = lga;
+            lgaSelect.appendChild(option);
+        });
+    } else {
+        lgaSelect.disabled = true;
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = '-- Select State First --';
+        lgaSelect.appendChild(option);
+    }
+});
+
+// Validation for phone numbers
+document.getElementById("orderForm").addEventListener("submit", async function (event) {
+    const phone = document.getElementById("phone").value.trim();
+    const altPhone = document.getElementById("alt-phone").value.trim();
+    const phoneRegex = /^\d{11}$/;
+
+    if (!phoneRegex.test(phone) || !phoneRegex.test(altPhone)) {
+        alert("Both phone numbers must be exactly 11 digits.");
+        event.preventDefault();
+        return false;
+    }
+
+    // Formspree submission
+    event.preventDefault();
+    let response = await fetch(this.action, {
+        method: this.method,
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+        window.location.href = "thankf.html";
+    } else {
+        alert("Something went wrong. Please try again.");
+    }
+});
+
+// const ctaButton = document.getElementById('ctaButton');
+// const orderForm = document.getElementById('orderForm');
+
+// ctaButton.addEventListener('click', function() {
+//   orderForm.scrollIntoView({ behavior: 'smooth' });
+// });
 
 // ============================================
 // SMOOTH SCROLL WITH OFFSET FOR STICKY ELEMENTS
@@ -776,70 +819,47 @@ console.log('%cNew features: Success Counter, Regional Stock, Clinical Studies, 
 // STICKY CTA BUTTON - SCROLL TO FORM
 // ============================================
 
-document.addEventListener('DOMContentLoaded', function () {
-    const ctaButton = document.getElementById('ctaButton');
+/* ---- QUIZ LOGIC ---- */
+const quizAnswers = { q1: null, q2: null };
 
-    if (ctaButton) {
-        ctaButton.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            // Find the order form
-            const orderForm = document.getElementById('order-form');
-
-            if (orderForm) {
-                // Smooth scroll to form with offset
-                const offset = 80; // Account for sticky elements
-                const targetPosition = orderForm.getBoundingClientRect().top + window.pageYOffset - offset;
-
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    }
-});
-  /* ---- QUIZ LOGIC ---- */
-  const quizAnswers = { q1: null, q2: null };
-
-  function selectOption(el, step) {
+function selectOption(el, step) {
     const group = el.closest('.quiz-options');
     group.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
     el.classList.add('selected');
     quizAnswers['q' + step] = el.dataset.value;
     document.getElementById('nextBtn' + step).disabled = false;
-  }
+}
 
-  function toggleMulti(el) {
+function toggleMulti(el) {
     el.classList.toggle('selected');
     const anySelected = el.closest('.quiz-options').querySelectorAll('.selected').length > 0;
     document.getElementById('nextBtn3').disabled = !anySelected;
-  }
+}
 
-  function nextStep(current) {
+function nextStep(current) {
     document.querySelector('[data-step="' + current + '"]').classList.remove('active');
     document.querySelector('[data-step="' + (current + 1) + '"]').classList.add('active');
     updateProgress(current + 1);
-  }
+}
 
-  function prevStep(current) {
+function prevStep(current) {
     document.querySelector('[data-step="' + current + '"]').classList.remove('active');
     document.querySelector('[data-step="' + (current - 1) + '"]').classList.add('active');
     updateProgress(current - 1);
-  }
+}
 
-  function updateProgress(step) {
+function updateProgress(step) {
     const pct = ((step - 1) / 3) * 100;
     document.getElementById('quizProgress').style.width = pct + '%';
-  }
+}
 
-  function showResult() {
+function showResult() {
     // Determine stage
     let score = 0;
-    if (quizAnswers.q1 === 'active')    score += 1;
-    if (quizAnswers.q1 === 'advanced')  score += 2;
-    if (quizAnswers.q2 === 'active')    score += 1;
-    if (quizAnswers.q2 === 'advanced')  score += 2;
+    if (quizAnswers.q1 === 'active') score += 1;
+    if (quizAnswers.q1 === 'advanced') score += 2;
+    if (quizAnswers.q2 === 'active') score += 1;
+    if (quizAnswers.q2 === 'advanced') score += 2;
 
     const q3All = document.getElementById('opts-3').querySelectorAll('.selected');
     if (q3All.length >= 3) score += 1;
@@ -847,35 +867,35 @@ document.addEventListener('DOMContentLoaded', function () {
     let stage, badgeClass, title, desc, pkgName, pkgBottles, pkgPrice, oldPrice, pkgWhy;
 
     if (score <= 1) {
-      stage = 'Early Stage';
-      badgeClass = 'early';
-      title = 'Good News — Early Detection Means Faster Results';
-      desc = 'Your fibroid is at an early stage. With prompt treatment you can dissolve it completely and prevent it from growing larger. The Value Pack is sufficient for your condition.';
-      pkgName = 'Value Package — 2 Bottle';
-      pkgBottles = '2 Bottle (30-day supply)';
-      pkgPrice = '₦40,000';
-      oldPrice = '₦70,000';
-      pkgWhy = 'Ideal for early-stage fibroids. Begin treatment now and stop the fibroid before it grows.';
+        stage = 'Early Stage';
+        badgeClass = 'early';
+        title = 'Good News — Early Detection Means Faster Results';
+        desc = 'Your fibroid is at an early stage. With prompt treatment you can dissolve it completely and prevent it from growing larger. The Value Pack is sufficient for your condition.';
+        pkgName = 'Value Package — 2 Bottle';
+        pkgBottles = '2 Bottle (30-day supply)';
+        pkgPrice = '₦40,000';
+        oldPrice = '₦70,000';
+        pkgWhy = 'Ideal for early-stage fibroids. Begin treatment now and stop the fibroid before it grows.';
     } else if (score <= 3) {
-      stage = 'Active Stage';
-      badgeClass = 'active';
-      title = 'Your Fibroid Is Actively Growing — Act Now';
-      desc = 'Your symptoms and duration suggest the fibroid has had time to establish itself. A full complete treatment is needed to shrink it properly and restore hormonal balance.';
-      pkgName = 'Complete Package — 3 Bottles';
-      pkgBottles = '3 Bottles (45-days supply)';
-      pkgPrice = '₦50,000';
-      oldPrice = '₦90,000';
-      pkgWhy = 'Recommended for moderate fibroids. Gives your body enough time to dissolve the fibroid and stabilise your cycle.';
+        stage = 'Active Stage';
+        badgeClass = 'active';
+        title = 'Your Fibroid Is Actively Growing — Act Now';
+        desc = 'Your symptoms and duration suggest the fibroid has had time to establish itself. A full complete treatment is needed to shrink it properly and restore hormonal balance.';
+        pkgName = 'Complete Package — 3 Bottles';
+        pkgBottles = '3 Bottles (45-days supply)';
+        pkgPrice = '₦50,000';
+        oldPrice = '₦90,000';
+        pkgWhy = 'Recommended for moderate fibroids. Gives your body enough time to dissolve the fibroid and stabilise your cycle.';
     } else {
-      stage = 'Advanced Stage';
-      badgeClass = 'advanced';
-      title = 'Your Condition Needs a Full Womb Correction Cycle';
-      desc = 'Based on your answers, your fibroid has been growing for a significant time with severe symptoms. A complete 45-day treatment is strongly recommended to fully correct your womb environment and prevent recurrence.';
-      pkgName = 'Complete Package — 3 Bottles';
-      pkgBottles = '3-4 Bottles (2-Months supply) — Most Recommended';
-      pkgPrice = '₦65,000';
-      oldPrice = '₦110,000';
-      pkgWhy = 'Designed for advanced or long-standing fibroids. Full cycle corrects the root cause and ensures the fibroid does not return.';
+        stage = 'Advanced Stage';
+        badgeClass = 'advanced';
+        title = 'Your Condition Needs a Full Womb Correction Cycle';
+        desc = 'Based on your answers, your fibroid has been growing for a significant time with severe symptoms. A complete 45-day treatment is strongly recommended to fully correct your womb environment and prevent recurrence.';
+        pkgName = 'Complete Package — 3 Bottles';
+        pkgBottles = '3-4 Bottles (2-Months supply) — Most Recommended';
+        pkgPrice = '₦65,000';
+        oldPrice = '₦110,000';
+        pkgWhy = 'Designed for advanced or long-standing fibroids. Full cycle corrects the root cause and ensures the fibroid does not return.';
     }
 
     document.getElementById('quizProgress').style.width = '100%';
@@ -901,9 +921,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const resultEl = document.getElementById('quizResult');
     resultEl.innerHTML = resultHTML;
     resultEl.classList.add('show');
-  }
+}
 
-  function retakeQuiz() {
+function retakeQuiz() {
     quizAnswers.q1 = null; quizAnswers.q2 = null;
     document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
     document.getElementById('nextBtn1').disabled = true;
@@ -915,23 +935,23 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('quizResult').innerHTML = '';
     document.querySelector('.quiz-body').style.display = 'block';
     document.getElementById('quizProgress').style.width = '0%';
-  }
+}
 
-  /* ---- COMMENTS LIKE TOGGLE ---- */
-  function toggleLike(btn) {
+/* ---- COMMENTS LIKE TOGGLE ---- */
+function toggleLike(btn) {
     const countEl = btn.querySelector('.like-count');
     let count = parseInt(countEl.textContent);
     if (btn.classList.contains('liked')) {
-      btn.classList.remove('liked');
-      countEl.textContent = count - 1;
+        btn.classList.remove('liked');
+        countEl.textContent = count - 1;
     } else {
-      btn.classList.add('liked');
-      countEl.textContent = count + 1;
+        btn.classList.add('liked');
+        countEl.textContent = count + 1;
     }
-  }
+}
 
-  /* ---- COMPOSE COMMENT ---- */
-  function submitComment() {
+/* ---- COMPOSE COMMENT ---- */
+function submitComment() {
     const input = document.getElementById('commentInput');
     const text = input.value.trim();
     if (!text) return;
@@ -943,7 +963,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <div class="comment-avatar">👤</div>
       <div class="comment-content">
         <div class="comment-name">You</div>
-        <p class="comment-text">${text.replace(/</g,'&lt;')}</p>
+        <p class="comment-text">${text.replace(/</g, '&lt;')}</p>
         <div class="comment-meta">
           <button class="like-btn" onclick="toggleLike(this)">👍 Like <span class="like-count">0</span></button>
           <button class="reply-btn">Reply</button>
@@ -952,4 +972,4 @@ document.addEventListener('DOMContentLoaded', function () {
       </div>`;
     list.insertBefore(newComment, compose);
     input.value = '';
-  }
+}
