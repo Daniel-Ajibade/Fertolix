@@ -3,1004 +3,207 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Fertolix Pro - Natural Solution for Fibroids, Ovarian Cysts & Tubal
-      Blockage
-    </title>
-    <link rel="stylesheet" href="style.css" />
-    <!-- Meta Pixel Code -->
-    <script>
-      !(function (f, b, e, v, n, t, s) {
-        if (f.fbq) return;
-        n = f.fbq = function () {
-          n.callMethod
-            ? n.callMethod.apply(n, arguments)
-            : n.queue.push(arguments);
-        };
-        if (!f._fbq) f._fbq = n;
-        n.push = n;
-        n.loaded = !0;
-        n.version = "2.0";
-        n.queue = [];
-        t = b.createElement(e);
-        t.async = !0;
-        t.src = v;
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-      })(
-        window,
-        document,
-        "script",
-        "https://connect.facebook.net/en_US/fbevents.js",
-      );
-      fbq("init", "1536680344478842");
-      fbq("track", "PageView");
-    </script>
-    <noscript
-      ><img
-        height="1"
-        width="1"
-        style="display: none"
-        src="https://www.facebook.com/tr?id=1536680344478842&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=AW-18196257229"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+    <title>Fertolix Pro NG</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-      gtag("js", new Date());
+      :root {
+        --green: #1b5e3b;
+        --green-mid: #256b47;
+        --green-light: #ebf5ef;
+        --green-border: #b8deca;
+        --text-dark: #1c1c1c;
+        --text-mid: #3d3d3d;
+        --text-muted: #6b6b6b;
+        --border: #e0e0e0;
+        --bg: #f8f6f1;
+        --white: #ffffff;
+      }
+      body {
+        font-family: "Source Sans 3", sans-serif;
+        background: var(--bg);
+        color: var(--text-dark);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
 
-      gtag("config", "AW-18196257229");
-    </script>
+      /* AD BAR */
+      .ad-bar {
+        background: #f0ede6;
+        border-bottom: 1px solid var(--border);
+        padding: 7px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+      .ad-tag {
+        background: var(--border);
+        color: var(--text-muted);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 2px 7px;
+        border-radius: 3px;
+      }
+
+      /* MAIN */
+      .wrap {
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 3rem 1.25rem 0rem 2.5rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .category {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--green);
+        border-bottom: 2px solid var(--green);
+        padding-bottom: 3px;
+        margin-bottom: 1.25rem;
+      }
+
+      h1 {
+        font-family: "Merriweather", serif;
+        font-size: clamp(1.4rem, 5vw, 1.9rem);
+        font-weight: 700;
+        line-height: 1.3;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+      }
+
+      .intro {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.75;
+        color: var(--text-mid);
+        margin-bottom: 2rem;
+        border-left: 3px solid var(--green);
+        padding-left: 16px;
+      }
+
+      /* DISCLAIMER */
+      .disclaimer {
+        font-size: 11px;
+        color: #7a7a7a;
+        margin-top: 20px;
+        line-height: 1.5;
+        text-align: center;
+      }
+
+      /* CTA */
+      .cta-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: var(--green);
+        color: #fff;
+        font-family: "Source Sans 3", sans-serif;
+        font-size: 17px;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 6px;
+        padding: 17px 28px;
+        width: 100%;
+        transition:
+          background 0.18s,
+          transform 0.12s;
+      }
+      .cta-btn:hover {
+        background: var(--green-mid);
+        transform: translateY(-1px);
+      }
+      .cta-btn:active {
+        transform: scale(0.98);
+      }
+
+      .cta-sub {
+        margin-top: 10px;
+        font-size: 16px;
+        color: var(--text-muted);
+        text-align: center;
+        line-height: 1.6;
+      }
+
+      /* FOOTER */
+      .footer {
+        border-top: 1px solid var(--border);
+        /* padding: 1.25rem; */
+        /* border: 1px solid red; */
+        text-align: center;
+        font-size: 16px;
+        color: var(--text-muted);
+        line-height: 1.7;
+      }
+      .footer a {
+        color: var(--text-muted);
+        text-decoration: underline;
+      }
+    </style>
   </head>
   <body>
-    <!-- Live Visitor Counter Bar -->
-    <div class="visitor-counter">
-      <span class="pulse-dot"></span>
-      <span id="visitorCount">PAYMENT ON DELIVERY |</span> FREE DELIVERY
+    <div class="ad-bar">
+      <span class="ad-tag">Sponsored</span>
+      <span>Brought to you by Salva </span>
     </div>
 
-    <!-- Floating WhatsApp Button -->
-    <a
-      href="https://wa.me/2347026386176?text=Hello,%20Dr%20Johnson%20I%20want%20to%20order%20For%20Fertolix%20Pro"
-      class="whatsapp-float"
-      target="_blank"
-      rel="noopener"
-    >
-      <span class="whatsapp-text">Chat With a Gynecologist</span>
-      <span class="whatsapp-icon">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-          <path
-            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
-          />
-        </svg>
-      </span>
-    </a>
+    <div class="wrap">
+      <span class="category">Women's &bull; Wellness</span>
 
-    <!-- Order Notification Popup -->
-    <div class="order-notification" id="orderNotification">
-      <div class="notification-content">
-        <div class="notification-text">
-          <strong id="notificationName">Chioma from Lagos</strong>
-          <span id="notificationOrder">just ordered 2 Bottles </span>
-        </div>
-      </div>
+      <h1>
+        Struggling With Fibroid? Nigerian Women Are Finding Natural Support
+      </h1>
+
+      <p class="intro">
+        Heavy periods, bloating, pelvic pressure, and fibroid discomfort can
+        feel overwhelming. Discover a natural approach many women are using to
+        take control of their fibroid symptoms — without surgery.
+      </p>
+
+      <a
+        class="cta-btn"
+        href="main.html"
+        target="_blank"
+        rel="noopener sponsored"
+      >
+        Click Here to Continue →
+      </a>
+      <p class="cta-sub">
+        Free delivery nationwide &bull; Pay on delivery &bull; 30-day money-back
+        guarantee
+      </p>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="container">
-        <div class="hero-content">
-          <div class="hero-text">
-            <h1>
-              Shrink Multiple Fibroid, Ovarian Cysts & Clear Tubal Blockages
-              <span class="highlight">Completely</span> - No Surgery Needed
-            </h1>
-            <p class="hero-subtitle">
-              NAFDAC & FDA Approved • Clinically Tested • Made in USA • 100%
-              Natural Ingredients
-            </p>
-            <p class="hero-description">
-              A Revolutionary Solution that dissolves <b>SINGLE</b> &
-              <b>MULTIPLE FIBROID</b>, Removes Ovarian Cysts, Unblocks fallopian
-              tubes, and Allows For conception without surgery or harmful Side
-              effects.
-            </p>
-
-            <!-- <div class="trust-badges">
-              <div class="badge-item">✓ Trusted Solution</div>
-              <div class="badge-item">✓ All sizes of Fiboid</div>
-              <div class="badge-item">✓ Heal Your Womb Restore Hope</div>
-            </div> -->
-
-            <div class="hero-cta">
-              <a href="#order-form" class="btn-primary"
-                >Order Now - Enjoy Discount</a
-              >
-              <!-- <a href="tel:07026386176" class="btn-secondary"
-                >📞 Call: 07026386176</a
-              > -->
-            </div>
-
-            <p class="hero-assurance">
-              ✨ See visible changes within 10 days • Complete results in 30
-              days or less
-            </p>
-            <div class="bottle-mockup">
-              <img src="images/kdj.webp" alt="" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Problem Section -->
-    <!-- <section class="problem-section">
-      <div class="container">
-        <h2 class="section-title">Are You Struggling With Any of These?</h2>
-        <div class="problem-grid">
-          <div class="problem-item">
-            <span class="problem-icon">⚠️</span>
-            <h3>Uterine Fibroids</h3>
-            <p>Single or Multiple Fibroid Proving Difficult to Dissolve</p>
-          </div>
-          <div class="problem-item">
-            <span class="problem-icon">😰</span>
-            <h3>Heavy Menstrual Bleeding</h3>
-            <p>Prolonged periods causing pain and discomfort</p>
-          </div>
-          <div class="problem-item">
-            <span class="problem-icon">💔</span>
-            <h3>Difficulty Getting Pregnant</h3>
-            <p>Trying to conceive without success for months or years</p>
-          </div>
-          <div class="problem-item">
-            <span class="problem-icon">😔</span>
-            <h3>Hormonal Imbalance</h3>
-            <p>Irregular cycles, bloating, and mood swings</p>
-          </div>
-        </div>
-        <p class="problem-highlight">
-          You're not alone. Its a common concern over a time now, Over 2,800
-          women have it too, But Certainly this is your Last Stop
-        </p>
-      </div>
-    </section> -->
-
-    <!-- Solution Section -->
-    <section class="solution-section">
-      <div class="container">
-        <h2 class="section-title">
-          Introducing <span class="brand-highlight">Fertolix Pro</span>
-        </h2>
-        <p class="section-subtitle">
-          The Natural, Clinically-Proven Solution That Works in 30 Days or Less
-        </p>
-        <div style="width: 100%">
-          <img src="images/Fertolix. bottle.jpg.jpeg" alt="" />
-        </div>
-
-        <div class="solution-content">
-          <div class="solution-text">
-            <h3>Why Fertolix Pro Works</h3>
-            <p>
-              This unique product directly targets and binds to the root of the
-              Fibroid, breaking it:
-            </p>
-            <ul class="benefits-list">
-              <li>✓ Dissolve fibroids naturally (all types and sizes)</li>
-              <li>✓ Remove ovarian cysts inside and outside the womb</li>
-              <li>✓ Unblock fallopian tubes for improved fertility</li>
-              <li>✓ Balance hormones and regulate menstrual flow</li>
-              <li>✓ Stops heavy bleeding and painful symptoms</li>
-              <li>✓ Prevent recurrence of fibroids</li>
-              <li>✓ Improve chances of natural conception</li>
-            </ul>
-          </div>
-
-          <div
-            style="
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: center;
-              margin-bottom: 40px;
-              gap: 20px;
-            "
-          >
-            <div style="flex: 1; min-width: 280px">
-              <p style="text-align: center; font-weight: bold">
-                Womb with fibroids
-              </p>
-              <img
-                src="images/bfibroid.jpg"
-                alt="Uterus with Fibroid"
-                style="width: 100%; border-radius: 10px"
-              />
-            </div>
-            <div style="flex: 1; min-width: 280px">
-              <img
-                src="images/afibroid.jpg"
-                alt="Healed Womb"
-                style="width: 100%; border-radius: 10px"
-              />
-              <p style="text-align: center; font-weight: bold">
-                Clean and healthy womb
-              </p>
-            </div>
-          </div>
-
-          <div class="ingredients-box">
-            <h3>Some of the Clinically-Tested Natural Ingredients:</h3>
-            <div class="ingredient-item">
-              <strong>Poria</strong> - Reduces inflammation and shrinks fibroids
-            </div>
-            <div class="ingredient-item">
-              <strong>Vitex Agnus-Castus</strong> - Balances hormones naturally
-            </div>
-            <div class="ingredient-item">
-              <strong>Curcuma Longa</strong> - Powerful anti-inflammatory
-              properties
-            </div>
-            <div class="ingredient-item">
-              <strong>Zingiber Officinale</strong> - Improves circulation and
-              healing
-            </div>
-            <div class="ingredient-item">
-              <strong>Urtica Dioica</strong> - Supports reproductive health
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline">
-          <h3>Your Journey to Healing</h3>
-          <div class="timeline-item">
-            <div class="timeline-day">Day 1-10</div>
-            <div class="timeline-content">
-              <h4>Visible Changes Experienced, Treatment Begins</h4>
-              <p>Reduced bloating, lighter flow, less pain</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-day">Day 11-20</div>
-            <div class="timeline-content">
-              <h4>Healing Accelerates</h4>
-              <p>Fibroids shrinking, Hormones balancing, Energy returning</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-day">Day 21-30</div>
-            <div class="timeline-content">
-              <h4>Complete Transformation</h4>
-              <p>
-                Fibroids dissolved, Tubes cleared, body ready for conception
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="quiz-section">
-      <div class="quiz-inner">
-        <div class="quiz-header">
-          <span class="tag">Free Assessment</span>
-          <h2>
-            Discover Your Fibroid Stage &amp;<br />Get a Personalised
-            Recommendation
-          </h2>
-          <p>
-            Answer 3 quick questions and we'll tell you exactly which Fertolix
-            Pro package is right for your specific condition.
-          </p>
-        </div>
-
-        <div class="quiz-card">
-          <div class="quiz-progress-bar-wrap">
-            <div class="quiz-progress-bar" id="quizProgress"></div>
-          </div>
-
-          <!-- STEP 1 -->
-          <div class="quiz-body">
-            <div class="quiz-step active" data-step="1">
-              <div class="quiz-step-label">Question 1 of 3</div>
-              <h3>How long have you been experiencing fibroid symptoms?</h3>
-              <div class="quiz-options" id="opts-1">
-                <div
-                  class="quiz-option"
-                  data-value="early"
-                  onclick="selectOption(this, 1)"
-                >
-                  <div class="opt-radio"></div>
-                  <span>Less than 6 months</span>
-                </div>
-                <div
-                  class="quiz-option"
-                  data-value="early"
-                  onclick="selectOption(this, 1)"
-                >
-                  <div class="opt-radio"></div>
-                  <span>6 months – 2 years</span>
-                </div>
-                <div
-                  class="quiz-option"
-                  data-value="active"
-                  onclick="selectOption(this, 1)"
-                >
-                  <div class="opt-radio"></div>
-                  <span>2 – 5 years</span>
-                </div>
-                <div
-                  class="quiz-option"
-                  data-value="advanced"
-                  onclick="selectOption(this, 1)"
-                >
-                  <div class="opt-radio"></div>
-                  <span>More than 5 years</span>
-                </div>
-              </div>
-              <div class="quiz-nav">
-                <button
-                  class="quiz-btn-next"
-                  id="nextBtn1"
-                  disabled
-                  onclick="nextStep(1)"
-                >
-                  Next Question →
-                </button>
-              </div>
-            </div>
-
-            <!-- STEP 2 -->
-            <div class="quiz-step" data-step="2">
-              <div class="quiz-step-label">Question 2 of 3</div>
-              <h3>How would you describe your symptoms right now?</h3>
-              <div class="quiz-options" id="opts-2">
-                <div
-                  class="quiz-option"
-                  data-value="early"
-                  onclick="selectOption(this, 2)"
-                >
-                  <div class="opt-radio"></div>
-                  <span>Mild — occasional pain, slightly heavy periods</span>
-                </div>
-                <div
-                  class="quiz-option"
-                  data-value="active"
-                  onclick="selectOption(this, 2)"
-                >
-                  <div class="opt-radio"></div>
-                  <span
-                    >Moderate — frequent pain, very heavy bleeding,
-                    bloating</span
-                  >
-                </div>
-                <div
-                  class="quiz-option"
-                  data-value="advanced"
-                  onclick="selectOption(this, 2)"
-                >
-                  <div class="opt-radio"></div>
-                  <span
-                    >Severe — daily pain, unable to function, doctor suggested
-                    surgery</span
-                  >
-                </div>
-              </div>
-              <div class="quiz-nav">
-                <button class="quiz-btn-back" onclick="prevStep(2)">
-                  ← Back
-                </button>
-                <button
-                  class="quiz-btn-next"
-                  id="nextBtn2"
-                  disabled
-                  onclick="nextStep(2)"
-                >
-                  Next Question →
-                </button>
-              </div>
-            </div>
-
-            <!-- STEP 3 -->
-            <div class="quiz-step" data-step="3">
-              <div class="quiz-step-label">Question 3 of 3</div>
-              <h3>
-                What is your main goal?
-                <small
-                  style="
-                    font-size: 0.7rem;
-                    font-weight: 400;
-                    color: var(--text-gray);
-                  "
-                  >(Select all that apply)</small
-                >
-              </h3>
-              <div class="quiz-options" id="opts-3">
-                <div
-                  class="quiz-option multi"
-                  data-value="shrink"
-                  onclick="toggleMulti(this)"
-                >
-                  <div class="opt-radio"></div>
-                  <span>🌿 Shrink and dissolve my fibroids</span>
-                </div>
-                <div
-                  class="quiz-option multi"
-                  data-value="fertility"
-                  onclick="toggleMulti(this)"
-                >
-                  <div class="opt-radio"></div>
-                  <span>👶 Restore my fertility and conceive naturally</span>
-                </div>
-                <div
-                  class="quiz-option multi"
-                  data-value="bleeding"
-                  onclick="toggleMulti(this)"
-                >
-                  <div class="opt-radio"></div>
-                  <span>🩸 Stop the heavy bleeding and pain</span>
-                </div>
-                <div
-                  class="quiz-option multi"
-                  data-value="all"
-                  onclick="toggleMulti(this)"
-                >
-                  <div class="opt-radio"></div>
-                  <span>✨ All of the above — I want complete healing</span>
-                </div>
-              </div>
-              <div class="quiz-nav">
-                <button class="quiz-btn-back" onclick="prevStep(3)">
-                  ← Back
-                </button>
-                <button
-                  class="quiz-btn-next"
-                  id="nextBtn3"
-                  disabled
-                  onclick="showResult()"
-                >
-                  See My Result →
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- RESULT -->
-          <div class="quiz-result" id="quizResult">
-            <!-- filled by JS -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Benefits Grid -->
-    <!-- <section class="benefits-section">
-      <div class="container">
-        <h2 class="section-title">Why You Should Choose Fertolix Pro</h2>
-        <div class="benefits-grid">
-          <div class="benefit-card">
-            <div class="benefit-icon">🌿</div>
-            <h3>100% Natural</h3>
-            <p>No harmful chemicals or synthetic ingredients</p>
-          </div>
-          <div class="benefit-card">
-            <div class="benefit-icon">✅</div>
-            <h3>NAFDAC & FDA Approved</h3>
-            <p>Certified safe by regulatory bodies</p>
-          </div>
-          <div class="benefit-card">
-            <div class="benefit-icon">🚫</div>
-            <h3>No Surgery Required</h3>
-            <p>Avoid invasive procedures and long recovery</p>
-          </div>
-          <div class="benefit-card">
-            <div class="benefit-icon">⚡</div>
-            <h3>Fast Results</h3>
-            <p>See changes within 10 days</p>
-          </div>
-          <div class="benefit-card">
-            <div class="benefit-icon">👶</div>
-            <h3>Improves Fertility</h3>
-            <p>Increases chances of natural conception</p>
-          </div>
-          <div class="benefit-card">
-            <div class="benefit-icon">🔄</div>
-            <h3>Prevents Recurrence</h3>
-            <p>Stops fibroids and cysts from coming back</p>
-          </div>
-        </div>
-      </div>
-    </section> -->
-
-    <!-- Stock Scarcity Alert -->
-    <div class="stock-alert">
-      <div class="container">
-        <span class="alert-icon">⚠️</span>
-        <span class="alert-text"
-          >Only <strong id="stockCount">12</strong> bottles left at discount
-          price!</span
-        >
-      </div>
+    <div class="footer">
+      <a href="#">Privacy Policy</a> &nbsp;|&nbsp;
+      <a href="#">Advertiser Disclosure</a>
     </div>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials-section">
-      <div class="hero-image">
-        <div class="product-placeholder">
-          <div class="bottle-mockup">
-            <img src="images/Fertolix. bottle.jpg.jpeg" alt="" />
-          </div>
-        </div>
-      </div>
-      <div class="container">
-        <h2 class="section-title">Here are some testimonies</h2>
-
-        <!-- Written Testimonials -->
-        <div class="testimonials-grid">
-          <div class="testimonial-card">
-            <div class="testimonial-header">
-              <div class="testimonial-avatar">
-                <img
-                  src="/images/434423422_948459206645571_2966339564382824602_n-150x150.webp"
-                  alt=""
-                />
-              </div>
-              <div class="testimonial-info">
-                <h4>Stella Abraham</h4>
-                <p class="location">Lagos State</p>
-                <div class="stars">★★★★★</div>
-              </div>
-            </div>
-            <p class="testimonial-text">
-              "I had 3 large fibroids and was told I needed surgery. After just
-              4 weeks on Fertolix Pro, my scan showed they had shrunk by 70%! My
-              doctor was amazed. Now I'm completely fibroid-free and just found
-              out I'm pregnant after 6 years of trying!"
-            </p>
-            <span class="verified">✓ Verified Purchase</span>
-          </div>
-
-          <div class="testimonial-card featured-testimonial">
-            <span class="featured-badge">PREGNANCY SUCCESS</span>
-            <div class="testimonial-header">
-              <div class="testimonial-avatar">
-                <img src="/images/adda.jpg" alt="" />
-              </div>
-              <div class="testimonial-info">
-                <h4>Fatima Ibrahim</h4>
-                <p class="location">Abuja</p>
-                <div class="stars">★★★★★</div>
-              </div>
-            </div>
-            <p class="testimonial-text">
-              "After 8 years of marriage without a child, multiple doctors said
-              my tubes were blocked and I needed IVF. I tried Fertolix Pro as a
-              last resort. After 6 weeks, my tubes were clear! I got pregnant
-              naturally 3 months later. My baby boy is now 4 months old. Thank
-              you Fertolix Pro!"
-            </p>
-            <span class="verified">✓ Verified Purchase</span>
-          </div>
-
-          <div class="testimonial-card featured-testimonial">
-            <span class="featured-badge">PREGNANCY SUCCESS</span>
-            <div class="testimonial-header">
-              <div class="testimonial-avatar">
-                <img
-                  src="/images/462659108_8680070305349501_5189454087711066550_n-150x150.webp"
-                  alt=""
-                />
-              </div>
-              <div class="testimonial-info">
-                <h4>Esther Nwosu</h4>
-                <p class="location">Rivers STate</p>
-                <div class="stars">★★★★★</div>
-              </div>
-            </div>
-            <p class="testimonial-text">
-              "After 5 years of trying to conceive, I was losing hope. My doctor
-              confirmed blocked fallopian tubes. Fertolix Pro cleared my tubes
-              in just one month! I conceived naturally and now have a beautiful
-              baby girl. Forever grateful!"
-            </p>
-            <span class="verified">✓ Verified Purchase</span>
-          </div>
-        </div>
-
-        <!-- WhatsApp Testimonials Section -->
-        <div class="whatsapp-testimonials">
-          <h3>Hear the Joyful Testimonies from Nigerian Women</h3>
-
-          <div class="whatsapp-grid">
-            <div class="whatsapp-placeholder">
-              <img
-                style="width: 100%; height: auto"
-                src="images/myrev1.jpeg"
-                alt=""
-              />
-            </div>
-
-            <div class="whatsapp-placeholder">
-              <img
-                style="width: 100%; height: auto"
-                src="images/testimon.webp"
-                alt=""
-              />
-            </div>
-
-            <div class="whatsapp-placeholder">
-              <img
-                style="width: 100%; height: auto"
-                src="images/test.webp"
-                alt=""
-              />
-            </div>
-
-            <div class="whatsapp-placeholder">
-              <img
-                style="width: 100%; height: auto"
-                src="images/myrev22.jpeg"
-                alt=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section class="pricing-section" id="pricing">
-      <div class="container">
-        <h2 class="section-title">Choose Your Package</h2>
-        <p class="section-subtitle">
-          Limited Time Discount - Don't Miss Out!!!
-        </p>
-
-        <!-- <div class="pricing-grid">
-          <div class="pricing-card">
-            <h3>Starter Package</h3>
-            <div class="package-contents">
-              <p>1 Bottle</p>
-              <p class="duration">(15-days supply)</p>
-            </div>
-            <div class="pricing">
-              <span class="old-price">₦35,000</span>
-              <span class="new-price">₦25,000</span>
-              <span class="savings">Save ₦10,000</span>
-            </div>
-            <a href="#order-form" class="btn-pricing">Order Now</a>
-          </div> -->
-
-        <div class="pricing-card">
-          <h3>Value Package</h3>
-          <div class="package-contents">
-            <p>2 Bottles</p>
-            <p class="duration">(1-Month supply)</p>
-          </div>
-          <div class="pricing">
-            <span class="old-price">₦45,000</span>
-            <span class="discount-price">₦35,000</span>
-            <span class="savings">Save ₦10,000</span>
-          </div>
-          <a href="#order-form" class="btn-pricing">Order Now</a>
-        </div>
-
-        <div class="pricing-card featured">
-          <div class="popular-badge">MOST RECOMMENDED</div>
-          <h3>Complete Package</h3>
-          <div class="package-contents">
-            <p>3 Bottles</p>
-            <p class="duration">(45-day supply)</p>
-          </div>
-          <div class="pricing">
-            <span class="old-price">₦65,000</span>
-            <span class="discount-price">₦50,000</span>
-            <span class="savings">Save ₦15,000</span>
-          </div>
-          <a href="#order-form" class="btn-pricing">Order Now</a>
-          <p class="recommended">✨ Recommended for best results</p>
-        </div>
-
-        <div class="pricing-card">
-          <h3>Premium Package</h3>
-          <div class="package-contents">
-            <p>4 Bottles</p>
-            <p class="duration">(2-Months supply)</p>
-          </div>
-          <div class="pricing">
-            <span class="old-price">₦85,000</span>
-            <span class="discount-price">₦65,000</span>
-            <span class="savings">Save ₦20,000</span>
-          </div>
-          <a href="#order-form" class="btn-pricing">Order Now</a>
-        </div>
-      </div>
-
-      <div class="pricing-features">
-        <p>
-          ✓ Free Delivery Nationwide • ✓ Money-Back Guarantee • ✓ 24/7 Customer
-          Support
-        </p>
-      </div>
-    </section>
-
-    <!-- Order Form Section -->
-    <section class="order-form-section" id="order-form">
-      <div class="container">
-        <h2 class="section-title">Place Your Order Now</h2>
-        <p class="section-subtitle">
-          Fill the form below and we'll contact you to confirm your order
-        </p>
-
-        <div class="stock-warning">
-          ⚠️ Only <strong id="stockCountForm">8</strong> bottles left at
-          discount price - Order now!
-        </div>
-
-        <form
-          id="orderForm"
-          action="https://formspree.io/f/xlgbbvzl"
-          method="POST"
-        >
-          <label for="name">Full Name</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Enter your full name"
-            required
-          />
-
-          <label for="phone">Primary Phone Number</label>
-          <input
-            type="tel"
-            name="phone"
-            id="phone"
-            placeholder="08012345678"
-            pattern="\d{11}"
-            minlength="11"
-            maxlength="11"
-            required
-          />
-
-          <label for="alt-phone">Alternative Phone Number</label>
-          <input
-            type="tel"
-            name="alt-phone"
-            id="alt-phone"
-            placeholder="08012345678"
-            pattern="\d{11}"
-            minlength="11"
-            maxlength="11"
-            required
-          />
-
-          <label for="state">State</label>
-          <select
-            name="state"
-            id="state"
-            required
-            style="width: 100%; padding: 10px; margin-bottom: 10px"
-          >
-            <option value="">-- Select Your State --</option>
-          </select>
-
-          <label for="lga">Local Government Area (LGA)</label>
-          <select
-            name="lga"
-            id="lga"
-            required
-            style="width: 100%; padding: 10px; margin-bottom: 10px"
-            disabled
-          >
-            <option value="">-- Select State First --</option>
-          </select>
-
-          <label for="quantity">Select Number of Bottles</label>
-          <select
-            name="quantity"
-            id="quantity"
-            required
-            style="width: 100%; padding: 10px; margin-bottom: 10px"
-          >
-            <option value="">-- Choose Quantity --</option>
-            <!-- <option value="1 Bottle of Fertolix Pro - ₦25,000">
-              1 Bottle - ₦25,000
-            </option> -->
-            <option value="2 Bottles of Fertolix Pro - ₦40,000">
-              2 Bottles - ₦35,000
-            </option>
-            <option value="3 Bottles of Fertolix Pro - ₦50,000">
-              3 Bottles - ₦50,000
-            </option>
-            <option value="4 Bottles of Fertolix Pro - ₦50,000">
-              4 Bottles - ₦65,000
-            </option>
-          </select>
-
-          <label for="address">Delivery Address</label>
-          <textarea
-            name="address"
-            id="address"
-            rows="3"
-            placeholder="Enter your full delivery address"
-            required
-          ></textarea>
-
-          <button type="submit">Submit Order</button>
-        </form>
-      </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section">
-      <div class="container">
-        <h2 class="section-title">Frequently Asked Questions</h2>
-
-        <div class="faq-grid">
-          <div class="faq-item">
-            <h3 class="faq-question">How long does it take to see results?</h3>
-            <p class="faq-answer">
-              visible changes is within 10 days, with complete results typically
-              achieved within 30 days or less. Results may vary based on
-              individual conditions and body response.
-            </p>
-          </div>
-
-          <div class="faq-item">
-            <h3 class="faq-question">Is Fertolix Pro safe?</h3>
-            <p class="faq-answer">
-              Yes! Fertolix Pro is made from 100% natural ingredients,
-              clinically tested, and approved by both NAFDAC and FDA. It has no
-              known side effects and is safe for long-term use.
-            </p>
-          </div>
-
-          <div class="faq-item">
-            <h3 class="faq-question">Will my fibroids come back?</h3>
-            <p class="faq-answer">
-              Fertolix Pro not only dissolves existing fibroids and cysts but
-              also prevents recurrence by addressing the root hormonal causes.
-              No recurrence as changes are Permanant.
-            </p>
-          </div>
-
-          <div class="faq-item">
-            <h3 class="faq-question">Do you deliver nationwide?</h3>
-            <p class="faq-answer">
-              Yes! We deliver to all 36 states in Nigeria including FCT Abuja.
-              Delivery is FREE and takes 24-48 hours depending on your location.
-              with Payment on Delivery
-            </p>
-          </div>
-
-          <div class="faq-item">
-            <h3 class="faq-question">What if it doesn't work for me?</h3>
-            <p class="faq-answer">
-              We offer a 100% money-back guarantee. If you don't see results
-              after completing the full treatment as directed, simply contact us
-              for a full refund - no questions asked.
-            </p>
-          </div>
-
-          <div class="faq-item">
-            <h3 class="faq-question">How many bottles do I need?</h3>
-            <p class="faq-answer">
-              The 3-bottle package (90-day supply) is our recommended choice and
-              provides the best value for complete treatment.
-            </p>
-          </div>
-
-          <div class="faq-item">
-            <h3 class="faq-question">
-              What sizes of fibroids does it work on?
-            </h3>
-            <p class="faq-answer">
-              Fertolix Pro works on all types and sizes of fibroids - whether
-              they're inside or outside the womb, small or large. The natural
-              ingredients target fibroids at the cellular level.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Final CTA Section -->
-    <section class="final-cta">
-      <div class="container">
-        <h2>Don't Let Fibroids Control Your Life Any Longer</h2>
-        <p class="cta-text">
-          Join over 2,800 women who have successfully dissolved their fibroids,
-          removed ovarian cysts, and achieved their dream of motherhood with
-          Fertolix Pro.
-        </p>
-
-        <div class="cta-benefits">
-          <div class="cta-benefit">✓ NAFDAC & FDA Approved</div>
-          <div class="cta-benefit">✓ 100% Natural & Safe</div>
-          <div class="cta-benefit">✓ Money-Back Guarantee</div>
-          <div class="cta-benefit">✓ Free Nationwide Delivery</div>
-        </div>
-
-        <div class="urgency-text">
-          <p>⏰ Limited time discount ends soon</p>
-          <p>
-            ⚠️ Only <strong id="stockCountFinal">6</strong> bottles left at this
-            price
-          </p>
-        </div>
-
-        <div class="cta-buttons">
-          <a href="#order-form" class="btn-primary-large"
-            >Order Now - Save ₦5,000</a
-          >
-          <a
-            href="https://wa.me/2347026386176?text=Hello,%20Dr%20Johnson%20I%20want%20to%20order%20For%20Fertolix%20Pro"
-            class="btn-whatsapp-large"
-            target="_blank"
-            >Order via WhatsApp</a
-          >
-        </div>
-
-        <p class="cta-guarantee">🛡️ Risk-Free 30-Day Money-Back Guarantee</p>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-brand">
-            <h3>FERTOLIX PRO</h3>
-            <p>Natural solution for fibroids, ovarian cysts & tubal blockage</p>
-          </div>
-
-          <div class="footer-contact">
-            <h4>Contact Us</h4>
-            <p>📞 <a href="tel:07026386176">07026386176</a></p>
-            <p>
-              💬
-              <a href="https://wa.me/2347026386176" target="_blank"
-                >WhatsApp Us</a
-              >
-            </p>
-            <p>⏰ Available 24/7</p>
-          </div>
-
-          <div class="footer-guarantee">
-            <h4>Our Guarantee</h4>
-            <p>✓ NAFDAC & FDA Approved</p>
-            <p>✓ 100% Money-Back Guarantee</p>
-            <p>✓ Free Nationwide Delivery</p>
-            <p>✓ Secure Payment Options</p>
-          </div>
-        </div>
-
-        <div class="footer-bottom">
-          <p class="copyright">
-            &copy; 2026 Fertolix Pro. All rights reserved.
-          </p>
-          <p class="disclaimer">
-            Disclaimer: Results may vary from person to person. This product is
-            not intended to diagnose, treat, cure, or prevent any disease.
-            Always consult with a healthcare professional before starting any
-            new supplement regimen.
-          </p>
-        </div>
-      </div>
-    </footer>
-    <div class="sticky-cta-bar">
-      <button class="cta-button" id="ctaButton">
-        🌿 Order Now - Enjoy Discount
-      </button>
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> This is sponsored content. The product
+      discussed is a dietary supplement — not a medicine. It is not intended to
+      diagnose, treat, cure, or prevent any disease. Results vary. Please
+      consult your doctor before use, especially if you have an existing medical
+      condition.
     </div>
-
-    <script src="script.js"></script>
   </body>
 </html>
