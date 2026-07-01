@@ -31,26 +31,26 @@ document.addEventListener('DOMContentLoaded', function () {
     // ============================================
     // LIVE VISITOR COUNTER
     // ============================================
-    const visitorCountElement = document.getElementById('visitorCount');
+    // const visitorCountElement = document.getElementById('visitorCount');
 
-    // Function to update visitor count with random fluctuation
-    function updateVisitorCount() {
-        // Random number between 35 and 65
-        const count = Math.floor(Math.random() * (65 - 35 + 1)) + 35;
-        visitorCountElement.textContent = count;
-    }
+    // // Function to update visitor count with random fluctuation
+    // function updateVisitorCount() {
+    //     // Random number between 35 and 65
+    //     const count = Math.floor(Math.random() * (65 - 35 + 1)) + 35;
+    //     visitorCountElement.textContent = count;
+    // }
 
-    // Update visitor count every 8-12 seconds (random interval)
-    function scheduleVisitorUpdate() {
-        const interval = Math.floor(Math.random() * (12000 - 8000 + 1)) + 8000;
-        setTimeout(function () {
-            updateVisitorCount();
-            scheduleVisitorUpdate(); // Schedule next update
-        }, interval);
-    }
+    // // Update visitor count every 8-12 seconds (random interval)
+    // function scheduleVisitorUpdate() {
+    //     const interval = Math.floor(Math.random() * (12000 - 8000 + 1)) + 8000;
+    //     setTimeout(function () {
+    //         updateVisitorCount();
+    //         scheduleVisitorUpdate(); // Schedule next update
+    //     }, interval);
+    // }
 
-    // Start visitor counter
-    scheduleVisitorUpdate();
+    // // Start visitor counter
+    // scheduleVisitorUpdate();
 
     // ============================================
     // ORDER NOTIFICATION POPUP

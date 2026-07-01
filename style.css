@@ -215,7 +215,7 @@ body {
   left: auto;
   top: 80px;
   background: var(--white);
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   z-index: 997;
@@ -380,6 +380,7 @@ body {
   color: var(--accent-gold);
   font-weight: 600;
   font-size: 1rem;
+  margin-bottom: 30px;
 }
 
 /* Hero Image */
@@ -555,26 +556,26 @@ img {
 }
 
 .benefits-list li {
-  padding: var(--spacing-sm) 0;
-  font-size: 1.05rem;
+  /* padding: var(--spacing-sm) 0; */
+  font-size: 1.0rem;
   color: var(--text-dark);
 }
 
 .ingredients-box {
   background: var(--white);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-sm);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
 }
 
 .ingredients-box h3 {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: var(--primary-teal);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
 }
 
 .ingredient-item {
-  padding: var(--spacing-sm) 0;
+  /* padding: var(--spacing-sm) 0; */
   border-bottom: 1px solid var(--bg-cream);
 }
 
@@ -821,6 +822,9 @@ img {
   font-size: 1.2rem;
   flex-shrink: 0;
 }
+.testimonial-avatar > img{
+  border-radius: 100%;
+}
 
 .testimonial-info h4 {
   color: var(--text-dark);
@@ -843,7 +847,7 @@ img {
   color: var(--text-gray);
   line-height: 1.7;
   margin-bottom: var(--spacing-md);
-  font-style: italic;
+  /* font-style: italic; */
 }
 
 .verified {
@@ -1020,7 +1024,7 @@ img {
   margin-bottom: var(--spacing-xs);
 }
 
-.pricing .new-price {
+.pricing .discount-price {
   display: block;
   font-size: 2.5rem;
   font-weight: 700;
